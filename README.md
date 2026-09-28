@@ -1,0 +1,36 @@
+# ISO/IEC 27001:2022 標準簡介 ─ 3 分鐘課程重點動畫
+
+依據《ISO 27001 標準簡介》上課簡報（講師：羅宇倫 Allan Lo）製作的 3 分鐘課程重點導覽動畫。
+
+- 🎬 **影片**：[`video/ISO27001_course_intro.mp4`](video/ISO27001_course_intro.mp4)（1920×1080、30fps、180 秒、含背景音樂）
+- 🌐 **互動版**：[`animation/index.html`](animation/index.html)，瀏覽器直接開啟即可播放（空白鍵暫停、點擊進度條跳轉）
+
+## 動畫段落
+
+| 時間 | 段落 | 內容重點 |
+|---|---|---|
+| 0:00 | 開場 | ISO/IEC 27001:2022 標準簡介、講師介紹 |
+| 0:09 | 課程大綱 | 標準沿革 / 架構與內容 / 附錄 A 控制措施 |
+| 0:18 | ISMS 演進歷史 | 1995 BS 7799 → 2005 ISO 27001 → 2022 改版 |
+| 0:36 | 27001 vs 27002 | 要求事項（可驗證，shall）vs 控制措施指引（參考，should）；以風險為基礎 |
+| 0:50 | 系列標準家族 | 共通性、產業別、特定主題標準（27005、27017、27701…） |
+| 1:02 | 標準架構 | 第 1~3 章前言、第 4~10 章要求（不得排除）、附錄 A |
+| 1:18 | PSDCA 模式 | 規劃 P、支援 S、執行 D、檢查 C、行動 A |
+| 1:30 | 條文 4~10 | 組織全景、領導、規劃（風險評鑑 → 風險處理 → SoA）、支援、運作、績效評估、改善 |
+| 2:16 | 附錄 A | 4 主題 93 項：A.5 組織 37、A.6 人員 8、A.7 實體 14、A.8 技術 34 |
+| 2:30 | 15 項運作能力 | 治理、人資安全、資訊保護 … 遵循性 |
+| 2:43 | 控制屬性 | 控制類型、資安特性、網宇安全概念、運作能力、安全領域 |
+| 2:51 | 重點回顧 | 延伸學習：sites.google.com/123hi.org/iso27001 |
+
+## 重新產生影片
+
+動畫以 HTML/JS 撰寫，每一影格由時間 `t` 決定（可重現），再用 Playwright 逐格擷取並以 ffmpeg 編碼。
+
+```bash
+npm i playwright && pip install numpy imageio-ffmpeg
+node scripts/render.js video.mp4 30          # 逐格擷取 → 無聲 MP4
+python3 scripts/make_audio.py bgm.wav        # 產生背景音樂
+ffmpeg -i video.mp4 -i bgm.wav -c:v copy -c:a aac -b:a 160k -shortest video/ISO27001_course_intro.mp4
+```
+
+修改內容：編輯 `animation/index.html` 中各 `<section class="scene" data-start data-end>` 的文字與時間即可。
