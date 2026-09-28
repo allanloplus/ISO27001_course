@@ -5,7 +5,7 @@ const { spawn } = require('child_process');
 const path = require('path');
 
 const FFMPEG = process.env.FFMPEG || 'ffmpeg';
-const page_url = 'file://' + path.resolve(__dirname, '../animation/' + (process.env.PAGE || 'index.html')) + '?render=1';
+const page_url = 'file://' + path.resolve(__dirname, '../animation/' + (process.env.PAGE || 'index.html')) + '?render=1' + (process.env.QUERY || '');
 
 (async () => {
   const args = process.argv.slice(2);

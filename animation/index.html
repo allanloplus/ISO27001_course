@@ -270,9 +270,10 @@ body.render #ui{display:none}
 <div id="course"><div><span class="k">課程名稱</span>3分鐘快速了解ISO27001</div><a href="http://www.123hi.org" target="_blank" rel="noopener"><span class="k">講師</span>Allan Lo (<span>http://www.123hi.org</span>)</a></div>
 <div id="chrome"><div id="sec"></div><div id="prog"><div id="progf"></div></div><div id="clock"></div></div>
 </div>
-<div id="gate"><button id="go">🔊 開始播放（Allan 老師開口說話）</button><p>有聲版會用你裝置上的中文語音朗讀對話框。<br>建議使用 <b>Microsoft Edge</b> 瀏覽器，可聽到最自然的年輕男聲（雲哲）。</p></div>
+<div id="gate"><button id="go">🔊 開始播放（Allan 老師開口說話）</button><p>請開啟喇叭或耳機 🎧</p></div>
 <div id="ui"><button id="pp">⏸ 暫停</button><button id="rs">⟲ 重播</button><a href="index.html?voice">🔊 有聲版</a><a href="../video/ISO27001_course_intro.mp4" target="_blank" rel="noopener">🎬 影片 MP4</a><a href="classic.html">經典版</a></div>
 
+<script src="voice/voice.js"></script>
 <script>
 const DUR = 180;
 const $ = (s, r=document) => r.querySelector(s);
@@ -280,35 +281,35 @@ const $ = (s, r=document) => r.querySelector(s);
 /* ================= dialogue (speech bubbles) ================= */
 // [start, end, text, pose]; pose while talking. Between lines Allan idles.
 const LINES = [
-  [0.9, 4.8, "哈囉大家好！\n我是 <b>Allan 老師</b> 👋", "wave"],
+  [0.9, 4.8, "哈囉大家好！\n我是 <b>Allan 老師</b> 👋", "wave", "哈囉大家好！我是 Allan！"],
   [5.0, 9.5, "3 分鐘，帶你\n秒懂 <b>ISO 27001</b>！", "cheer"],
   [10.9, 18.4, "今天分三站：\n沿革 → 架構 → 附錄A\n出發囉！🚀", "point"],
   [19.7, 25.4, "資安管理的老祖宗，\n是英國的 <b>BS 7799</b>！", "point"],
   [25.8, 30.8, "2005 年正式成為\n<b>ISO 27001</b> 🎉", "cheer"],
   [31.2, 35.6, "現在用的是\n<b>2022 新版</b> ✨", "point"],
   [36.8, 41.8, "27001 是『規則』，\n驗證稽核就看它！", "point"],
-  [42.1, 46.1, "27002 是『攻略本』，\n教你控制措施怎麼做", "point"],
-  [46.4, 49.6, "兩者核心都是：\n<b>以風險為基礎</b>！", "thumb"],
+  [42.1, 46.1, "27002 是『攻略本』，\n教你控制措施怎麼做", "point", "27002 是攻略本，教你怎麼做！"],
+  [46.4, 49.6, "兩者核心都是：\n<b>以風險為基礎</b>！", "thumb", "核心都是：以風險為基礎！"],
   [50.8, 55.4, "27000 家族\n成員超多的啦！", "cheer"],
-  [55.7, 60.5, "像 27005 風險管理、\n27701 隱私管理\n都是親戚喔～", "point"],
+  [55.7, 60.5, "像 27005 風險管理、\n27701 隱私管理\n都是親戚喔～", "point", "像 27005、27701，都是親戚喔！"],
   [61.8, 67.6, "第 4～10 章是<b>必考題</b>，\n一章都不能排除！", "point"],
   [68.0, 75.4, "附錄 A 則是\n依風險<b>挑選</b>要用的\n控制措施", "point"],
   [76.8, 81.8, "P-D-C-A 一直轉，\n資安越來越好！", "cheer"],
   [82.1, 87.5, "中間的 <b>S 支援</b>\n是動力來源 💪\n資源、人力、能力", "point"],
   [88.6, 93.6, "先搞懂內外部議題\n和關注方，\n再劃定範圍！", "point"],
-  [94.6, 99.6, "老闆要帶頭！\n承諾、政策、權責\n都要到位 👔", "point"],
+  [94.6, 99.6, "老闆要帶頭！\n承諾、政策、權責\n都要到位 👔", "point", "老闆要帶頭！承諾、政策、權責要到位！"],
   [100.6, 105.6, "重頭戲來了！\n<b>風險評鑑 → 風險處理</b>", "point"],
   [106.0, 111.5, "最後產出 <b>SoA</b>\n適用性聲明 📄", "thumb"],
   [112.6, 117.6, "記住：是<b>能力導向</b>，\n不是上過課就好喔！", "point"],
-  [118.6, 122.6, "照計畫執行，\n重大變更時\n要重做風險評鑑", "point"],
-  [123.6, 128.6, "監視量測、內稽、\n管理審查，\n定期健康檢查！🩺", "point"],
-  [129.6, 133.6, "有不符合？\n找根因、矯正、\n<b>持續改善</b>！", "cheer"],
+  [118.6, 122.6, "照計畫執行，\n重大變更時\n要重做風險評鑑", "point", "重大變更時，要重做風險評鑑！"],
+  [123.6, 128.6, "監視量測、內稽、\n管理審查，\n定期健康檢查！🩺", "point", "量測、內稽、管理審查，定期健檢！"],
+  [129.6, 133.9, "有不符合？\n找根因、矯正、\n<b>持續改善</b>！", "cheer", "不符合？找根因、矯正、持續改善！"],
   [134.8, 140.0, "附錄 A 有 4 大主題，\n共 <b>93 項</b>控制措施！", "cheer"],
   [140.4, 147.4, "組織類最多 37 項，\n技術類 34 項\n緊追在後！", "point"],
   [148.8, 153.8, "換個角度，\n從<b>流程面</b>來看…", "idle"],
   [154.2, 160.5, "附錄 A 可以串成\n<b>15 項運作能力</b>！", "point"],
   [161.8, 169.4, "每項控制還有\n5 種屬性標籤，\n好分類、好查找！", "point"],
-  [170.6, 175.0, "重點就三個：\n風險為本、PDCA、\n附錄 A！", "thumb"],
+  [170.6, 175.0, "重點就三個：\n風險為本、PDCA、\n附錄 A！", "thumb", "重點三個：風險為本、P D C A、附錄 A！"],
   [175.3, 179.8, "有問題歡迎討論，\n我們下次見～ 👋", "wave"],
 ];
 /* character placement: [time, x, bottom, scale] (moves over 0.8 s with a hop) */
@@ -541,7 +542,8 @@ function drawAllan(t){
   A.ptr.style.opacity=A.ptip.style.opacity=po.ptr;
   A.thumb.style.opacity=po.thumb; A.hand.style.opacity=1-po.thumb;
   const ln=LINES.find(l=>t>=l[0]&&t<l[1]); let talking=false;
-  if(ln){const plain=ln[2].replace(/<[^>]+>/g,""); talking=(t-ln[0])*16<[...plain].length;}
+  if(ln){const plain=ln[2].replace(/<[^>]+>/g,""), vi=LINES.indexOf(ln), clip=VOICE&&window.VOICE_CLIPS&&window.VOICE_CLIPS[vi];
+    talking = clip ? (t-ln[0]) < clip.dur : (t-ln[0])*16<[...plain].length;}
   const open=talking&&Math.floor(t*9)%2===0;
   A.smile.style.opacity=open?0:1; A.mo.style.opacity=open?1:0;
 }
@@ -623,7 +625,7 @@ function render(t){
   const s=Math.floor(t); $("#clock").textContent=`${Math.floor(s/60)}:${String(s%60).padStart(2,"0")} / 3:00`;
 }
 window.render=render; window.DUR=DUR;
-window.EVENTS={bubbles:LINES.map(l=>l[0]),scenes:scenes.map(s=>s.s).filter(x=>x>0)};
+window.EVENTS={bubbles:LINES.map(l=>l[0]),scenes:scenes.map(s=>s.s).filter(x=>x>0),lines:LINES};
 
 /* ---------- voice mode: speak each bubble with the browser's TTS ---------- */
 const VOICE = new URLSearchParams(location.search).has("voice") || window.VOICE_MODE === true;
@@ -647,24 +649,28 @@ function pickVoice(){
   zh.sort((a,b)=>rank(b)-rank(a));
   voicePick = zh[0] || null;
   const tag = document.getElementById("vname");
-  if (tag) tag.textContent = voicePick ? "語音：" + voicePick.name : "找不到中文語音";
+  if (tag) tag.textContent = window.VOICE_CLIPS ? "語音：雲哲（台灣男聲）" : (voicePick ? "語音：" + voicePick.name : "找不到中文語音");
   return voicePick;
 }
 let spokenIdx = -1;
+let clipAudio = null;
 function speakAt(t){
-  if (!VOICE || !window.speechSynthesis) return;
+  if (!VOICE) return;
+  if (!window.speechSynthesis && !window.VOICE_CLIPS) return;
   const i = LINES.findIndex(l => t >= l[0] && t < l[1]);
   if (i === spokenIdx) return;
   spokenIdx = i;
-  speechSynthesis.cancel();
+  speechSynthesis.cancel(); if (clipAudio) { clipAudio.pause(); clipAudio = null; }
   if (i < 0 || t - LINES[i][0] > 0.6) return;   // don't start a line mid-way after seeking
+  blip();
+  const c = window.VOICE_CLIPS && window.VOICE_CLIPS[i];
+  if (c) { clipAudio = new Audio("voice/" + c.file); clipAudio.play().catch(()=>{}); return; }
   const u = new SpeechSynthesisUtterance(sayText(LINES[i]));
   const v = voicePick || pickVoice();
   if (v) { u.voice = v; u.lang = v.lang; } else u.lang = "zh-TW";
   const male = v && /YunJhe|雲哲|Yunxi|Yunyang|Yunjian|Zhiwei|志偉|Kangkang|male|男/i.test(v.name);
   u.rate = 1.12; u.pitch = male ? 1.12 : 0.8;   // lively; pull an unknown/female voice lower
   speechSynthesis.speak(u);
-  blip();
 }
 let actx = null;
 function blip(){ try{ actx = actx || new (window.AudioContext||window.webkitAudioContext)(); const o=actx.createOscillator(), g=actx.createGain();
@@ -682,7 +688,7 @@ else{
   addEventListener("resize",fit);fit();
   let t0=performance.now(),paused=false,pt=0;
   const now=()=>paused?pt:(performance.now()-t0)/1000;
-  const hush=()=>{ if(VOICE&&window.speechSynthesis){ speechSynthesis.cancel(); spokenIdx=-1; } };
+  const hush=()=>{ if(VOICE){ if(window.speechSynthesis) speechSynthesis.cancel(); if(clipAudio){clipAudio.pause();clipAudio=null;} spokenIdx=-1; } };
   const toggle=()=>{if(paused){t0=performance.now()-pt*1000;paused=false;$("#pp").textContent="⏸ 暫停";}else{pt=now();paused=true;hush();$("#pp").textContent="▶ 播放";}};
   $("#pp").onclick=toggle; $("#rs").onclick=()=>{hush();t0=performance.now();pt=0;if(paused)toggle();};
   addEventListener("keydown",e=>{if(e.code==="Space"){e.preventDefault();toggle();}});

@@ -2,6 +2,7 @@
 
   python3 make_audio.py out.wav                        # calm ambient pad (classic version)
   python3 make_audio.py out.wav --pop events.json      # upbeat track + bubble "pop" SFX (Q-version)
+  python3 make_audio.py out.wav --pop events.json --voice animation/voice   # + Allan's voice, music ducked
 
 events.json comes from `node scripts/render.js --events events.json`
 ({"bubbles": [...start times], "scenes": [...start times]}).
@@ -141,11 +142,44 @@ def pop(events):
     return L, R, 0.6
 
 
+def load_clip(path):
+    import subprocess, imageio_ffmpeg
+    raw = subprocess.run([imageio_ffmpeg.get_ffmpeg_exe(), "-loglevel", "error", "-i", path, "-f", "s16le", "-ac", "1", "-ar", str(SR), "-"],
+                         capture_output=True, check=True).stdout
+    return np.frombuffer(raw, "<i2").astype(np.float64) / 32767
+
+
+def add_voice(L, R, vdir):
+    """Mix voice clips at their bubble start times and duck the music underneath."""
+    import os
+    meta = json.load(open(os.path.join(vdir, "voice.json")))
+    voice = np.zeros_like(t)
+    duck = np.ones_like(t)
+    ramp = int(0.15 * SR)
+    for m in meta:
+        clip = load_clip(os.path.join(vdir, m["file"]))
+        add(voice, m["start"] + 0.05, clip)
+        i0, i1 = int(m["start"] * SR), min(len(t), int((m["start"] + len(clip) / SR + 0.1) * SR))
+        duck[i0:i1] = 0.3
+    # smooth the ducking envelope
+    k = np.ones(ramp) / ramp
+    duck = np.convolve(duck, k, mode="same")
+    voice = voice / (np.max(np.abs(voice)) + 1e-9)
+    return L * duck, R * duck, voice
+
+
 def main():
     out = sys.argv[1] if len(sys.argv) > 1 else "bgm.wav"
     if "--pop" in sys.argv:
         ev = json.load(open(sys.argv[sys.argv.index("--pop") + 1]))
         L, R, peak = pop(ev)
+        voice = None
+        if "--voice" in sys.argv:
+            m = max(np.max(np.abs(L)), np.max(np.abs(R)))
+            L, R = L / m * 0.45, R / m * 0.45
+            L, R, voice = add_voice(L, R, sys.argv[sys.argv.index("--voice") + 1])
+            L, R = L + 0.9 * voice, R + 0.9 * voice
+            peak = 0.95
         d = int(0.18 * SR)
         L2, R2 = L.copy(), R.copy()
         L2[d:] += 0.18 * R[:-d]; R2[d:] += 0.18 * L[:-d]
