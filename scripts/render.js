@@ -14,6 +14,11 @@ const page_url = 'file://' + path.resolve(__dirname, '../animation/index.html') 
   await page.goto(page_url, { waitUntil: 'networkidle' });
   await page.evaluate(() => document.fonts.ready);
 
+  if (args[0] === '--events') {  // dump bubble/scene times for the audio track
+    require('fs').writeFileSync(args[1], JSON.stringify(await page.evaluate(() => window.EVENTS || {})));
+    await browser.close();
+    return;
+  }
   if (args[0] === '--stills') {
     const dir = args[2] || '.';
     for (const t of args[1].split(',').map(Number)) {

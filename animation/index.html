@@ -3,599 +3,627 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ISO 27001 課程重點動畫</title>
+<title>ISO 27001 三分鐘速懂</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Inter:wght@400;600;800;900&display=block" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Huninn&family=Fredoka:wght@500;600;700&family=Noto+Sans+TC:wght@500;700;900&display=block" rel="stylesheet">
 <style>
 :root{
-  --bg:#07111f; --bg2:#0d1b31; --card:#0f2038; --line:#1f3657;
-  --ink:#eaf2ff; --mute:#8fa6c4; --cyan:#22d3ee; --teal:#2dd4bf;
-  --P:#3b82f6; --S:#a855f7; --D:#22c55e; --C:#f59e0b; --A:#f43f5e;
+  --ink:#1d1b33; --paper:#ffffff; --mute:#5b5876;
+  --y:#ffd23f; --pk:#ff5d8f; --bl:#3a86ff; --gr:#20c997; --or:#ff9f1c; --pu:#8f5cff;
+  --P:#3a86ff; --S:#8f5cff; --D:#20c997; --C:#ff9f1c; --A:#ff5d8f;
+  color-scheme:light;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{width:100%;height:100%;background:#000;overflow:hidden}
-body{font-family:"Noto Sans TC","Inter","WenQuanYi Zen Hei",sans-serif;color:var(--ink)}
-#stage{position:absolute;left:0;top:0;width:1920px;height:1080px;transform-origin:0 0;overflow:hidden;
-  background:radial-gradient(1400px 900px at 70% 20%,#11284a 0%,var(--bg) 60%)}
-#bg{position:absolute;inset:0}
+html,body{width:100%;height:100%;background:#1d1b33;overflow:hidden}
+body{font-family:"Noto Sans TC","WenQuanYi Zen Hei",sans-serif;color:var(--ink)}
+#stage{position:absolute;left:0;top:0;width:1920px;height:1080px;transform-origin:0 0;overflow:hidden;background:#cdefff}
+#bg,#fx{position:absolute;inset:0}
 .scene{position:absolute;inset:0;visibility:hidden}
 .a{will-change:transform,opacity}
 .abs{position:absolute!important}
-.center{display:flex;flex-direction:column;align-items:center;justify-content:center}
-.h1{font-size:64px;font-weight:900;letter-spacing:2px}
-.h2{font-size:54px;font-weight:900;letter-spacing:1px}
-.kicker{font-size:26px;font-weight:700;color:var(--cyan);letter-spacing:6px}
+.fd{font-family:Fredoka,"Noto Sans TC",sans-serif}
+.sticker{background:var(--paper);border:5px solid var(--ink);border-radius:26px;box-shadow:8px 8px 0 var(--ink);padding:22px 26px;position:relative}
+.tag{display:inline-block;padding:6px 20px;border:4px solid var(--ink);border-radius:999px;font-weight:900;font-size:26px;box-shadow:4px 4px 0 var(--ink);background:var(--y)}
+.chip{display:inline-block;padding:4px 14px;border:3px solid var(--ink);border-radius:999px;font-weight:700;font-size:22px;background:#fff}
+.ttl{font-size:68px;font-weight:900;line-height:1.15}
+.mark{background:linear-gradient(transparent 60%,var(--y) 60%);padding:0 6px}
+.head{position:absolute;left:90px;top:64px;width:1230px}
+.head .tag{margin-bottom:14px}
 .mute{color:var(--mute)}
-.grad{background:linear-gradient(90deg,#67e8f9,#60a5fa 45%,#c084fc);-webkit-background-clip:text;background-clip:text;color:transparent}
-.card{background:linear-gradient(180deg,rgba(24,48,84,.92),rgba(13,28,52,.92));border:2px solid var(--line);border-radius:22px;padding:28px 32px;position:relative}
-.pill{display:inline-block;padding:8px 20px;border-radius:999px;font-weight:700;font-size:24px;border:2px solid currentColor}
 .hl{position:relative}
-.hl::after{content:"";position:absolute;inset:-4px;border-radius:inherit;border:4px solid var(--hc,var(--cyan));
-  box-shadow:0 0 36px var(--hc,var(--cyan)),inset 0 0 24px color-mix(in srgb,var(--hc,var(--cyan)) 30%,transparent);opacity:var(--h,0);pointer-events:none}
-.title-bar{position:absolute;left:120px;top:92px;right:120px}
-.title-bar .kicker{margin-bottom:10px}
-ul.dots{list-style:none}
-svg text{font-family:"Noto Sans TC","Inter",sans-serif}
-ul.dots li{position:relative;padding-left:30px;margin:10px 0;font-size:27px;line-height:1.45}
-ul.dots li::before{content:"";position:absolute;left:4px;top:17px;width:12px;height:12px;border-radius:50%;background:var(--dc,var(--cyan))}
-.num{font-family:Inter,"Noto Sans TC",sans-serif;font-weight:900}
+.hl::after{content:"";position:absolute;inset:-14px;border-radius:34px;border:6px dashed var(--hc,var(--pk));opacity:var(--h,0);pointer-events:none}
+
+/* character + bubble */
+#allan{position:absolute;left:0;top:0;width:300px;height:440px;transform-origin:150px 440px;z-index:5}
+#bubble{position:absolute;left:0;top:0;z-index:6;max-width:560px;background:#fff;border:5px solid var(--ink);border-radius:40px;
+  box-shadow:8px 8px 0 var(--ink);padding:22px 30px;font-family:Huninn,"Noto Sans TC",sans-serif;font-size:38px;line-height:1.35;white-space:nowrap;visibility:hidden}
+#bubble .rest{opacity:0}
+.fdt{font-family:Fredoka,sans-serif}
+#bubble b{color:var(--pk)}
+#tail{position:absolute;top:100%;width:60px;height:56px;margin-top:-5px;overflow:visible}
 
 /* chrome */
-#chrome{position:absolute;inset:0;pointer-events:none}
-#brand{position:absolute;left:44px;top:30px;font-size:22px;font-weight:700;color:var(--mute);letter-spacing:2px}
-#brand b{color:var(--cyan)}
-#who{position:absolute;right:44px;top:30px;font-size:22px;color:var(--mute)}
-#prog{position:absolute;left:0;right:0;bottom:0;height:8px;background:rgba(255,255,255,.06)}
-#progf{height:100%;width:0;background:linear-gradient(90deg,var(--cyan),#818cf8)}
-#sec{position:absolute;left:44px;bottom:26px;font-size:22px;color:var(--mute);letter-spacing:2px}
-#clock{position:absolute;right:44px;bottom:26px;font-size:22px;color:var(--mute);font-family:Inter}
+#chrome{position:absolute;inset:0;pointer-events:none;z-index:7}
+#sec{position:absolute;left:36px;bottom:22px;padding:4px 18px;border:4px solid var(--ink);border-radius:999px;background:#fff;font-weight:900;font-size:22px;box-shadow:3px 3px 0 var(--ink)}
+#prog{position:absolute;left:330px;right:210px;bottom:32px;height:20px;border:4px solid var(--ink);border-radius:999px;background:#fff;overflow:hidden}
+#progf{height:100%;width:0;background:repeating-linear-gradient(-45deg,var(--y) 0 16px,var(--or) 16px 32px)}
+#clock{position:absolute;right:36px;bottom:24px;font-size:26px;font-weight:700}
+.strip{position:absolute;left:90px;top:40px;width:1230px;display:flex;gap:12px}
+.strip div{flex:1;text-align:center;padding:6px 0;border:4px solid var(--ink);border-radius:16px;font-size:22px;font-weight:900;background:#fff;opacity:.55}
+.strip div.cur{opacity:1;background:var(--sc);color:#fff;box-shadow:4px 4px 0 var(--ink);transform:translateY(-4px)}
 
-/* clause strip */
-.strip{position:absolute;left:120px;right:120px;top:40px;display:flex;gap:14px;justify-content:center}
-.strip div{flex:0 0 auto;padding:6px 20px;border-radius:12px;font-size:22px;font-weight:700;color:#5f7697;border:2px solid #1d3354;background:rgba(10,22,40,.6)}
-.strip div.cur{color:#fff;background:var(--sc);border-color:var(--sc);box-shadow:0 0 24px var(--sc)}
-
-#ui{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);color:#9fb3cf;font:14px "Noto Sans TC",sans-serif;opacity:.8;z-index:10}
-#ui button{background:#16304f;color:#fff;border:1px solid #2b4a74;border-radius:8px;padding:6px 14px;margin:0 4px;cursor:pointer;font:inherit}
+#ui{position:fixed;left:50%;bottom:14px;transform:translateX(-50%);z-index:10;font:14px "Noto Sans TC",sans-serif}
+#ui button,#ui a{background:#fff;color:#1d1b33;border:3px solid #1d1b33;border-radius:999px;padding:5px 14px;margin:0 3px;cursor:pointer;font:700 14px "Noto Sans TC",sans-serif;text-decoration:none;display:inline-block}
 body.render #ui{display:none}
+@media (prefers-reduced-motion: reduce){ #ui{opacity:1} }
 </style>
 </head>
 <body>
 <div id="stage">
 <canvas id="bg" width="1920" height="1080"></canvas>
 
-<!-- ============ S1 TITLE 0-9 ============ -->
-<section class="scene" data-start="0" data-end="9" data-sec="開場">
-  <svg class="abs a" data-t="0.2" data-fx="fade" data-d="1" style="left:810px;top:120px" width="300" height="340" viewBox="0 0 300 340">
-    <defs><linearGradient id="sg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#67e8f9"/><stop offset="1" stop-color="#818cf8"/></linearGradient></defs>
-    <path class="a" data-t="0.2" data-fx="draw" data-d="1.6" pathLength="1" d="M150 14 L270 60 V160 C270 240 215 300 150 326 C85 300 30 240 30 160 V60 Z" fill="none" stroke="url(#sg)" stroke-width="10" stroke-linejoin="round"/>
-    <g class="a" data-t="1.4" data-fx="pop" data-d="0.8" style="transform-origin:150px 180px">
-      <rect x="100" y="160" width="100" height="84" rx="14" fill="url(#sg)"/>
-      <path d="M118 160 V132 a32 32 0 0 1 64 0 V160" fill="none" stroke="url(#sg)" stroke-width="14"/>
-      <circle cx="150" cy="196" r="11" fill="#07111f"/><rect x="145" y="200" width="10" height="24" rx="4" fill="#07111f"/>
-    </g>
-  </svg>
-  <div class="abs center" style="left:0;right:0;top:490px">
-    <div class="a kicker" data-t="1.6" data-fx="up">INFORMATION SECURITY MANAGEMENT SYSTEM</div>
-    <div class="a num grad" data-t="2.0" data-fx="zoom" data-d="1" style="font-size:124px;line-height:1.15;margin-top:14px">ISO/IEC 27001:2022</div>
-    <div class="a" data-t="2.8" data-fx="up" style="font-size:60px;font-weight:900;margin-top:6px">標準簡介 ─ 3 分鐘課程重點導覽</div>
-    <div class="a" data-t="3.8" data-fx="up" style="margin-top:36px;display:flex;gap:18px">
-      <span class="pill" style="color:var(--P)">ISMS 管理系統</span>
-      <span class="pill" style="color:var(--D)">以風險為基礎</span>
-      <span class="pill" style="color:var(--C)">PDCA 持續改善</span>
-      <span class="pill" style="color:var(--S)">附錄A 93 項控制措施</span>
-    </div>
-    <div class="a mute" data-t="4.8" data-fx="up" style="font-size:30px;margin-top:40px">講師：羅宇倫 Allan Lo　｜　ISMS / PIMS 輔導顧問</div>
-  </div>
-</section>
-
-<!-- ============ S2 AGENDA 9-18 ============ -->
-<section class="scene" data-start="9" data-end="18" data-sec="課程大綱">
-  <div class="title-bar">
-    <div class="a kicker" data-t="0.2" data-fx="left">AGENDA</div>
-    <div class="a h1" data-t="0.4" data-fx="left">課程大綱</div>
-  </div>
-  <div class="abs" style="left:120px;right:120px;top:330px;display:flex;gap:44px">
-    <div class="a card hl" data-t="1.0" data-fx="up" data-hl="1.8,4" style="flex:1;height:440px;--hc:var(--P)">
-      <div class="num" style="font-size:96px;color:var(--P)">01</div>
-      <div style="font-size:42px;font-weight:900;margin:10px 0 18px">標準沿革與<br>關連指引</div>
-      <div class="mute" style="font-size:26px;line-height:1.6">從 BS 7799 到 ISO 27001:2022<br>27000 系列標準家族</div>
-    </div>
-    <div class="a card hl" data-t="1.5" data-fx="up" data-hl="4,6" style="flex:1;height:440px;--hc:var(--D)">
-      <div class="num" style="font-size:96px;color:var(--D)">02</div>
-      <div style="font-size:42px;font-weight:900;margin:10px 0 18px">架構與<br>內容簡介</div>
-      <div class="mute" style="font-size:26px;line-height:1.6">PDCA 管理框架<br>第 4 ~ 10 章 要求事項</div>
-    </div>
-    <div class="a card hl" data-t="2.0" data-fx="up" data-hl="6,8.4" style="flex:1;height:440px;--hc:var(--S)">
-      <div class="num" style="font-size:96px;color:var(--S)">03</div>
-      <div style="font-size:42px;font-weight:900;margin:10px 0 18px">附錄 A 控制主題<br>與控制措施</div>
-      <div class="mute" style="font-size:26px;line-height:1.6">4 個主題 · 93 項控制措施<br>15 項運作能力</div>
+<!-- ============ S1 INTRO 0-10 ============ -->
+<section class="scene" data-start="0" data-end="10" data-sec="開場">
+  <div class="abs" style="left:760px;top:170px;width:1080px">
+    <div class="a tag" data-t="0.6" data-fx="stamp" data-rot="-5" style="background:var(--pk);color:#fff;font-size:32px">資安小教室 ★ 第 1 堂</div>
+    <div class="a fd" data-t="1.0" data-fx="stamp" data-rot="-2" style="font-size:190px;font-weight:700;line-height:1;margin-top:26px;color:#fff;-webkit-text-stroke:8px var(--ink);paint-order:stroke fill;text-shadow:10px 10px 0 var(--ink)">ISO 27001</div>
+    <div class="a" data-t="1.7" data-fx="stamp" data-rot="2" style="font-size:112px;font-weight:900;margin-top:6px;color:var(--pk);text-shadow:4px 4px 0 #fff,9px 9px 0 var(--ink)">三分鐘速懂！</div>
+    <div class="a" data-t="2.6" data-fx="up" style="font-size:38px;font-weight:900;margin-top:24px">ISO/IEC 27001:2022 資訊安全管理系統 標準簡介</div>
+    <div class="a" data-t="3.2" data-fx="up" style="margin-top:28px;display:flex;gap:16px">
+      <span class="tag" style="background:#fff">講師：羅宇倫 Allan Lo</span>
+      <span class="tag" style="background:var(--gr);color:#fff">ISMS / PIMS 輔導顧問</span>
     </div>
   </div>
 </section>
 
-<!-- ============ S3 HISTORY 18-36 ============ -->
-<section class="scene" data-start="18" data-end="36" data-sec="01 標準沿革">
-  <div class="title-bar">
-    <div class="a kicker" data-t="0.2" data-fx="left">01 · HISTORY</div>
-    <div class="a h1" data-t="0.4" data-fx="left">ISMS 演進歷史</div>
+<!-- ============ S2 AGENDA 10-19 ============ -->
+<section class="scene" data-start="10" data-end="19" data-sec="今日路線">
+  <div class="head">
+    <div class="a tag" data-t="0.2" data-fx="stamp" data-rot="-3">ROUTE MAP</div>
+    <div class="a ttl" data-t="0.4" data-fx="left">今天的<span class="mark">學習路線圖</span></div>
   </div>
-  <svg class="abs" style="left:0;top:0" width="1920" height="1080">
-    <defs><linearGradient id="tl" gradientUnits="userSpaceOnUse" x1="130" y1="0" x2="1800" y2="0"><stop offset="0" stop-color="#1e3a8a"/><stop offset="1" stop-color="#22d3ee"/></linearGradient></defs>
-    <path class="a" data-t="0.8" data-fx="draw" data-d="14" pathLength="1" d="M130 640 H1800" stroke="url(#tl)" stroke-width="8" stroke-linecap="round" fill="none"/>
-  </svg>
-  <div id="tlnodes"></div>
+  <svg class="abs" style="left:0;top:0" width="1920" height="1080"><path class="a" data-t="1.2" data-fx="draw" data-d="3" pathLength="1" d="M200 760 C 420 900, 560 520, 700 700 S 1020 880, 1200 640" fill="none" stroke="#1d1b33" stroke-width="6" stroke-dasharray="1" stroke-linecap="round"/></svg>
+  <div id="agenda"></div>
+</section>
+
+<!-- ============ S3 HISTORY 19-36 ============ -->
+<section class="scene" data-start="19" data-end="36" data-sec="第 1 站 · 標準沿革">
+  <div class="head">
+    <div class="a tag" data-t="0.2" data-fx="stamp" data-rot="-3" style="background:var(--bl);color:#fff">第 1 站 · 沿革</div>
+    <div class="a ttl" data-t="0.4" data-fx="left">ISMS <span class="mark">進化史</span></div>
+  </div>
+  <div id="tl"></div>
 </section>
 
 <!-- ============ S4 27001 vs 27002 36-50 ============ -->
-<section class="scene" data-start="36" data-end="50" data-sec="01 27001 與 27002">
-  <div class="title-bar">
-    <div class="a kicker" data-t="0.2" data-fx="left">01 · WHAT IS ISO 27001 / 27002</div>
-    <div class="a h1" data-t="0.4" data-fx="left">何謂 ISO 27001 及 ISO 27002？</div>
+<section class="scene" data-start="36" data-end="50" data-sec="第 1 站 · 27001 vs 27002">
+  <div class="head">
+    <div class="a tag" data-t="0.2" data-fx="stamp" data-rot="-3" style="background:var(--bl);color:#fff">第 1 站 · 沿革</div>
+    <div class="a ttl" data-t="0.4" data-fx="left">27001 vs 27002 <span class="mark">差在哪？</span></div>
   </div>
-  <div class="abs" style="left:120px;top:290px;width:780px">
-    <div class="a card hl" data-t="1.0" data-fx="left" data-hl="2.5,5" style="height:430px;--hc:var(--cyan)">
-      <div class="num" style="font-size:66px;color:var(--cyan)">ISO/IEC 27001:2022</div>
-      <div style="font-size:24px;color:var(--mute);margin:6px 0 20px">Information security management systems — Requirements</div>
-      <div style="font-size:38px;font-weight:900;margin-bottom:24px">資訊安全管理系統 ─ 要求事項</div>
-      <span class="pill" style="color:var(--D);font-size:28px">✔ 可驗證 Certifiable</span>
-      <div style="font-size:28px;margin-top:26px">用語：<b style="color:var(--cyan)">應 (shall)</b>　→　稽核依據</div>
-    </div>
+  <div class="abs a sticker hl" data-t="0.9" data-fx="pop" data-rot="-1.5" data-hl="1.2,5.8" style="left:90px;top:270px;width:580px;height:480px;--hc:var(--pk)">
+    <div style="display:flex;justify-content:space-between;align-items:center"><span class="fd" style="font-size:88px;font-weight:700;color:var(--pk)">27001</span><span style="font-size:80px">📋</span></div>
+    <div style="font-size:42px;font-weight:900;margin:4px 0 16px">要求事項</div>
+    <div style="font-size:28px;line-height:1.8">✅ 可驗證：稽核就看它<br>✍️ 用語：<b style="color:var(--pk)">應 (shall)</b></div>
+    <div class="tag" style="margin-top:22px;background:var(--pk);color:#fff;font-size:30px">＝ 考試規則</div>
   </div>
-  <div class="abs" style="right:120px;top:290px;width:780px">
-    <div class="a card hl" data-t="1.6" data-fx="right" data-hl="5,7.5" style="height:430px;--hc:var(--C)">
-      <div class="num" style="font-size:66px;color:var(--C)">ISO/IEC 27002:2022</div>
-      <div style="font-size:24px;color:var(--mute);margin:6px 0 20px">Information security controls</div>
-      <div style="font-size:38px;font-weight:900;margin-bottom:24px">資訊安全控制措施 ─ 實作指引</div>
-      <span class="pill" style="color:var(--C);font-size:28px">📖 參考 Guidance</span>
-      <div style="font-size:28px;margin-top:26px">用語：<b style="color:var(--C)">宜 (should)</b>　→　實作參考</div>
-    </div>
+  <div class="abs a sticker hl" data-t="1.4" data-fx="pop" data-rot="1.5" data-hl="6,10.3" style="left:740px;top:270px;width:580px;height:480px;--hc:var(--bl)">
+    <div style="display:flex;justify-content:space-between;align-items:center"><span class="fd" style="font-size:88px;font-weight:700;color:var(--bl)">27002</span><span style="font-size:80px">📘</span></div>
+    <div style="font-size:42px;font-weight:900;margin:4px 0 16px">控制措施指引</div>
+    <div style="font-size:28px;line-height:1.8">💡 參考用：教你怎麼做<br>✍️ 用語：<b style="color:var(--bl)">宜 (should)</b></div>
+    <div class="tag" style="margin-top:22px;background:var(--bl);color:#fff;font-size:30px">＝ 解題攻略本</div>
   </div>
-  <div class="abs a center" data-t="3" data-fx="pop" style="left:870px;top:440px;width:180px;height:130px">
-    <div style="font-size:64px">⇄</div><div style="font-size:22px;color:var(--mute);text-align:center">附錄 A<br>對應 27002</div>
-  </div>
-  <div class="abs a card center" data-t="7.8" data-fx="up" style="left:220px;right:220px;top:790px;padding:26px;border-color:#2dd4bf">
-    <div style="font-size:36px;font-weight:900">「<span style="color:var(--teal)">以風險為基礎</span>」的方法論</div>
-    <div class="mute" style="font-size:27px;margin-top:8px">定義政策、程序，並選擇適當的控制措施來管理資訊安全風險</div>
+  <div class="abs a fd" data-t="2.2" data-fx="stamp" style="left:640px;top:450px;width:130px;height:130px;border-radius:50%;background:var(--y);border:5px solid var(--ink);box-shadow:5px 5px 0 var(--ink);display:flex;align-items:center;justify-content:center;font-size:48px;font-weight:700">VS</div>
+  <div class="abs a sticker" data-t="10.4" data-fx="stamp" data-rot="-1" style="left:230px;top:800px;width:950px;background:var(--y);text-align:center;padding:18px">
+    <div style="font-size:40px;font-weight:900">⚖️ 核心精神：以風險為基礎</div>
+    <div style="font-size:24px;font-weight:700">定義政策、程序，選擇適當的控制措施來管理風險</div>
   </div>
 </section>
 
-<!-- ============ S5 FAMILY 50-62 ============ -->
-<section class="scene" data-start="50" data-end="62" data-sec="01 系列標準">
-  <div class="title-bar">
-    <div class="a kicker" data-t="0.2" data-fx="left">01 · ISO/IEC 27000 FAMILY</div>
-    <div class="a h1" data-t="0.4" data-fx="left">ISMS 系列標準家族</div>
+<!-- ============ S5 FAMILY 50-61 ============ -->
+<section class="scene" data-start="50" data-end="61" data-sec="第 1 站 · 系列標準">
+  <div class="head">
+    <div class="a tag" data-t="0.2" data-fx="stamp" data-rot="-3" style="background:var(--bl);color:#fff">第 1 站 · 沿革</div>
+    <div class="a ttl" data-t="0.4" data-fx="left">27000 <span class="mark">大家族</span></div>
   </div>
-  <div class="abs" style="left:120px;right:120px;top:300px;display:flex;gap:40px" id="family"></div>
+  <div class="abs" style="left:90px;top:270px;width:1230px;display:flex;gap:30px" id="family"></div>
 </section>
 
-<!-- ============ S6 STRUCTURE 62-78 ============ -->
-<section class="scene" data-start="62" data-end="78" data-sec="02 標準架構">
-  <div class="title-bar">
-    <div class="a kicker" data-t="0.2" data-fx="left">02 · STRUCTURE</div>
-    <div class="a h1" data-t="0.4" data-fx="left">ISO 27001:2022 架構</div>
+<!-- ============ S6 STRUCTURE 61-76 ============ -->
+<section class="scene" data-start="61" data-end="76" data-sec="第 2 站 · 標準架構">
+  <div class="head">
+    <div class="a tag" data-t="0.2" data-fx="stamp" data-rot="-3" style="background:var(--gr);color:#fff">第 2 站 · 架構</div>
+    <div class="a ttl" data-t="0.4" data-fx="left">ISO 27001 <span class="mark">長這樣</span></div>
   </div>
   <div id="struct"></div>
 </section>
 
-<!-- ============ S7 PSDCA 78-90 ============ -->
-<section class="scene" data-start="78" data-end="90" data-sec="02 PDCA 模式">
-  <div class="title-bar">
-    <div class="a kicker" data-t="0.2" data-fx="left">02 · PDCA + SUPPORT</div>
-    <div class="a h1" data-t="0.4" data-fx="left">PSDCA 模式應用到 ISMS 過程</div>
+<!-- ============ S7 PDCA 76-88 ============ -->
+<section class="scene" data-start="76" data-end="88" data-sec="第 2 站 · PDCA">
+  <div class="head">
+    <div class="a tag" data-t="0.2" data-fx="stamp" data-rot="-3" style="background:var(--gr);color:#fff">第 2 站 · 架構</div>
+    <div class="a ttl" data-t="0.4" data-fx="left">轉動 <span class="mark">PSDCA</span> 飛輪</div>
   </div>
-  <div class="abs a card center" data-t="1" data-fx="left" style="left:110px;top:440px;width:340px;height:260px;text-align:center">
-    <div style="font-size:48px">👥</div>
-    <div style="font-size:30px;font-weight:900;margin:8px 0">利害關係者<br>及關注方</div>
-    <div style="font-size:24px;color:var(--cyan)">資訊安全要求及期望</div>
-  </div>
-  <div class="abs a card center" data-t="7.6" data-fx="right" style="right:110px;top:440px;width:340px;height:260px;text-align:center;border-color:var(--D)">
-    <div style="font-size:48px">🛡️</div>
-    <div style="font-size:30px;font-weight:900;margin:8px 0">利害關係者<br>及關注方</div>
-    <div style="font-size:24px;color:var(--D)">已管理的資訊安全</div>
-  </div>
+  <div class="abs a sticker" data-t="1" data-fx="pop" data-rot="-3" style="left:90px;top:470px;width:250px;text-align:center;padding:16px">
+    <div style="font-size:56px">🙋</div><div style="font-size:28px;font-weight:900">關注方的<br>要求與期望</div></div>
+  <div class="abs a sticker" data-t="8" data-fx="pop" data-rot="3" style="left:1030px;top:470px;width:270px;text-align:center;padding:16px;background:#dcfff3">
+    <div style="font-size:56px">🛡️</div><div style="font-size:28px;font-weight:900">被妥善管理的<br>資訊安全</div></div>
   <svg class="abs" style="left:0;top:0" width="1920" height="1080">
-    <defs><marker id="ar" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="#8fa6c4"/></marker></defs>
-    <path class="a" data-t="1.6" data-fx="draw" pathLength="1" d="M462 570 H600" stroke="#8fa6c4" stroke-width="6" marker-end="url(#ar)" fill="none"/>
-    <path class="a" data-t="7.2" data-fx="draw" pathLength="1" d="M1320 570 H1455" stroke="#8fa6c4" stroke-width="6" marker-end="url(#ar)" fill="none"/>
-    <g id="cyc" transform="translate(960 590)"></g>
+    <defs><marker id="ar" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="4" markerHeight="4" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="#1d1b33"/></marker></defs>
+    <path class="a" data-t="1.6" data-fx="draw" pathLength="1" d="M350 580 H400" stroke="#1d1b33" stroke-width="7" marker-end="url(#ar)" fill="none"/>
+    <path class="a" data-t="7.6" data-fx="draw" pathLength="1" d="M960 580 H1015" stroke="#1d1b33" stroke-width="7" marker-end="url(#ar)" fill="none"/>
+    <g transform="translate(685 600)"><g id="cyc"></g></g>
   </svg>
 </section>
 
-<!-- ============ S8 CLAUSES 90-136 ============ -->
+<!-- ============ S8 CLAUSES 88-134 ============ -->
 <div id="clauses"></div>
 
-<!-- ============ S9 ANNEX A 136-150 ============ -->
-<section class="scene" data-start="136" data-end="150" data-sec="03 附錄 A">
-  <div class="title-bar">
-    <div class="a kicker" data-t="0.2" data-fx="left">03 · ANNEX A</div>
-    <div class="a h1" data-t="0.4" data-fx="left">附錄 A：<span class="num" style="color:var(--cyan)"><span class="a" data-t="0.6" data-fx="count" data-n="4" data-d="1">4</span></span> 個主題、<span class="num" style="color:var(--cyan)"><span class="a" data-t="0.6" data-fx="count" data-n="93" data-d="2.4">93</span></span> 項控制措施</div>
+<!-- ============ S9 ANNEX A 134-148 ============ -->
+<section class="scene" data-start="134" data-end="148" data-sec="第 3 站 · 附錄 A">
+  <div class="head">
+    <div class="a tag" data-t="0.2" data-fx="stamp" data-rot="-3" style="background:var(--pu);color:#fff">第 3 站 · 附錄 A</div>
+    <div class="a ttl" data-t="0.4" data-fx="left"><span class="fd a" data-t="0.6" data-fx="count" data-n="4" data-d="1">4</span> 大主題 · <span class="mark"><span class="fd a" data-t="0.6" data-fx="count" data-n="93" data-d="2.4">93</span> 項控制措施</span></div>
   </div>
-  <div class="abs" style="left:120px;right:120px;top:300px;display:flex;gap:34px" id="annex"></div>
-  <div class="abs a mute" data-t="10" data-fx="up" style="left:0;right:0;top:960px;text-align:center;font-size:28px">依風險評鑑結果決定適用之控制措施，並記錄於 <b style="color:var(--ink)">適用性聲明 (SoA)</b></div>
+  <div class="abs" style="left:90px;top:280px;width:1230px;display:flex;gap:26px" id="annex"></div>
 </section>
 
-<!-- ============ S10 15 CAPABILITIES 150-163 ============ -->
-<section class="scene" data-start="150" data-end="163" data-sec="03 十五項運作能力">
-  <div class="title-bar">
-    <div class="a kicker" data-t="0.2" data-fx="left">03 · OPERATIONAL CAPABILITIES</div>
-    <div class="a h1" data-t="0.4" data-fx="left">從流程面看附錄 A：15 項運作能力</div>
+<!-- ============ S10 15 CAPS 148-161 ============ -->
+<section class="scene" data-start="148" data-end="161" data-sec="第 3 站 · 15 項運作能力">
+  <div class="head">
+    <div class="a tag" data-t="0.2" data-fx="stamp" data-rot="-3" style="background:var(--pu);color:#fff">第 3 站 · 附錄 A</div>
+    <div class="a ttl" data-t="0.4" data-fx="left">從流程看：<span class="mark">15 項運作能力</span></div>
   </div>
-  <div class="abs" style="left:120px;right:120px;top:290px;display:grid;grid-template-columns:repeat(5,1fr);gap:26px" id="caps"></div>
-  <div class="abs a mute" data-t="9.5" data-fx="up" style="left:0;right:0;top:940px;text-align:center;font-size:28px">把 93 項控制措施串成 <b style="color:var(--ink)">15 個可落地的運作流程</b>，由治理到遵循性</div>
+  <div class="abs" style="left:90px;top:280px;width:1230px;display:grid;grid-template-columns:repeat(5,1fr);gap:24px" id="caps"></div>
 </section>
 
-<!-- ============ S11 ATTRIBUTES 163-171 ============ -->
-<section class="scene" data-start="163" data-end="171" data-sec="03 控制屬性">
-  <div class="title-bar">
-    <div class="a kicker" data-t="0.2" data-fx="left">03 · CONTROL ATTRIBUTES</div>
-    <div class="a h1" data-t="0.4" data-fx="left">補充：控制措施的 5 類屬性</div>
+<!-- ============ S11 ATTRS 161-170 ============ -->
+<section class="scene" data-start="161" data-end="170" data-sec="第 3 站 · 控制屬性">
+  <div class="head">
+    <div class="a tag" data-t="0.2" data-fx="stamp" data-rot="-3" style="background:var(--pu);color:#fff">第 3 站 · 附錄 A</div>
+    <div class="a ttl" data-t="0.4" data-fx="left">控制措施的 <span class="mark">5 種屬性標籤</span></div>
   </div>
-  <div class="abs" style="left:120px;right:120px;top:300px;display:flex;flex-direction:column;gap:22px" id="attrs"></div>
+  <div class="abs" style="left:90px;top:270px;width:1230px;display:flex;flex-direction:column;gap:20px" id="attrs"></div>
 </section>
 
-<!-- ============ S12 CLOSING 171-180 ============ -->
-<section class="scene" data-start="171" data-end="180.5" data-sec="重點回顧">
-  <div class="abs center" style="left:0;right:0;top:120px">
-    <div class="a kicker" data-t="0.2" data-fx="up">KEY TAKEAWAYS</div>
-    <div class="a h1" data-t="0.4" data-fx="up" style="margin-top:8px">重點回顧</div>
+<!-- ============ S12 CLOSING 170-180 ============ -->
+<section class="scene" data-start="170" data-end="180.5" data-sec="重點回顧">
+  <div class="head">
+    <div class="a tag" data-t="0.2" data-fx="stamp" data-rot="-3" style="background:var(--pk);color:#fff">重點回顧</div>
+    <div class="a ttl" data-t="0.4" data-fx="left">今天帶走 <span class="mark">3 個重點</span></div>
   </div>
-  <div class="abs" style="left:200px;right:200px;top:330px;display:flex;gap:36px">
-    <div class="a card" data-t="1.0" data-fx="up" style="flex:1;border-color:var(--teal)"><div style="font-size:52px">⚖️</div><div style="font-size:34px;font-weight:900;margin:12px 0">以風險為基礎</div><div class="mute" style="font-size:25px;line-height:1.6">風險評鑑 → 風險處理<br>→ 適用性聲明 SoA</div></div>
-    <div class="a card" data-t="1.6" data-fx="up" style="flex:1;border-color:var(--C)"><div style="font-size:52px">🔄</div><div style="font-size:34px;font-weight:900;margin:12px 0">PDCA 持續改善</div><div class="mute" style="font-size:25px;line-height:1.6">第 4~10 章為驗證要求<br>不得排除</div></div>
-    <div class="a card" data-t="2.2" data-fx="up" style="flex:1;border-color:var(--S)"><div style="font-size:52px">🛡️</div><div style="font-size:34px;font-weight:900;margin:12px 0">附錄 A 控制措施</div><div class="mute" style="font-size:25px;line-height:1.6">4 主題 · 93 項<br>15 項運作能力</div></div>
+  <div class="abs" style="left:90px;top:280px;width:1230px;display:flex;gap:30px">
+    <div class="a sticker" data-t="1.0" data-fx="pop" data-rot="-2" style="flex:1;background:#fff4c2"><div style="font-size:64px">⚖️</div><div style="font-size:36px;font-weight:900;margin:8px 0">以風險為基礎</div><div style="font-size:24px;font-weight:700" class="mute">風險評鑑 → 風險處理 → SoA</div></div>
+    <div class="a sticker" data-t="1.5" data-fx="pop" data-rot="1.5" style="flex:1;background:#dcfff3"><div style="font-size:64px">🔄</div><div style="font-size:36px;font-weight:900;margin:8px 0">PDCA 持續改善</div><div style="font-size:24px;font-weight:700" class="mute">第 4～10 章不得排除</div></div>
+    <div class="a sticker" data-t="2.0" data-fx="pop" data-rot="-1" style="flex:1;background:#ece5ff"><div style="font-size:64px">🧩</div><div style="font-size:36px;font-weight:900;margin:8px 0">附錄 A 控制措施</div><div style="font-size:24px;font-weight:700" class="mute">4 主題 · 93 項 · 15 能力</div></div>
   </div>
-  <div class="abs center" style="left:0;right:0;top:720px">
-    <div class="a" data-t="3.4" data-fx="zoom" style="font-size:58px;font-weight:900" ><span class="grad">問題與討論 · 謝謝聆聽</span></div>
-    <div class="a mute" data-t="4.2" data-fx="up" style="font-size:28px;margin-top:22px">延伸學習：sites.google.com/123hi.org/iso27001</div>
-    <div class="a" data-t="4.8" data-fx="up" style="font-size:28px;margin-top:12px">講師　羅宇倫 Allan Lo</div>
+  <div class="abs a" data-t="3.2" data-fx="stamp" data-rot="-2" style="left:90px;top:640px;width:1230px;text-align:center;font-size:84px;font-weight:900;color:var(--pk);text-shadow:4px 4px 0 #fff,9px 9px 0 var(--ink)">問題與討論 · 謝謝聆聽！</div>
+  <div class="abs a" data-t="4.2" data-fx="up" style="left:90px;top:800px;width:1230px;text-align:center">
+    <span class="tag" style="background:#fff;font-size:28px">📚 延伸學習：sites.google.com/123hi.org/iso27001</span>
   </div>
 </section>
 
-<div id="chrome">
-  <div id="brand"><b>ISO/IEC 27001:2022</b>　標準簡介</div>
-  <div id="who">講師：羅宇倫 Allan Lo</div>
-  <div id="sec"></div><div id="clock"></div>
-  <div id="prog"><div id="progf"></div></div>
+<!-- character -->
+<svg id="allan" viewBox="0 0 300 440" overflow="visible">
+  <ellipse cx="150" cy="430" rx="88" ry="12" fill="rgba(29,27,51,.18)"/>
+  <g id="body">
+    <rect x="118" y="365" width="26" height="58" rx="10" fill="#26345e" stroke="#1d1b33" stroke-width="5"/>
+    <rect x="156" y="365" width="26" height="58" rx="10" fill="#26345e" stroke="#1d1b33" stroke-width="5"/>
+    <ellipse cx="126" cy="424" rx="24" ry="11" fill="#1d1b33"/><ellipse cx="174" cy="424" rx="24" ry="11" fill="#1d1b33"/>
+    <path d="M84 388 Q78 290 112 262 L188 262 Q222 290 216 388 Z" fill="#2f4b9a" stroke="#1d1b33" stroke-width="5" stroke-linejoin="round"/>
+    <path d="M124 262 L150 322 L176 262 Z" fill="#fff" stroke="#1d1b33" stroke-width="4" stroke-linejoin="round"/>
+    <path d="M143 272 L157 272 L162 332 L150 348 L138 332 Z" fill="#20c997" stroke="#1d1b33" stroke-width="4" stroke-linejoin="round"/>
+    <rect x="96" y="300" width="50" height="24" rx="6" fill="#fff" stroke="#1d1b33" stroke-width="3"/>
+    <text x="121" y="318" text-anchor="middle" font-size="15" font-weight="700" font-family="Fredoka,sans-serif" fill="#1d1b33">Allan</text>
+    <path d="M178 298 L198 292 L218 298 V312 C218 324 208 332 198 336 C188 332 178 324 178 312 Z" transform="translate(-6 0) scale(.9) translate(20 34)" fill="#ffd23f" stroke="#1d1b33" stroke-width="4"/>
+    <g id="armL">
+      <line id="pointer" x1="95" y1="360" x2="95" y2="470" stroke="#8a5a2b" stroke-width="7" stroke-linecap="round"/>
+      <circle id="ptip" cx="95" cy="472" r="9" fill="#ff5d8f" stroke="#1d1b33" stroke-width="3"/>
+      <rect x="82" y="264" width="26" height="92" rx="13" fill="#2f4b9a" stroke="#1d1b33" stroke-width="5"/>
+      <circle cx="95" cy="362" r="16" fill="#ffd9b8" stroke="#1d1b33" stroke-width="5"/>
+    </g>
+    <g id="armR">
+      <rect x="192" y="264" width="26" height="92" rx="13" fill="#2f4b9a" stroke="#1d1b33" stroke-width="5"/>
+      <circle id="handR" cx="205" cy="362" r="16" fill="#ffd9b8" stroke="#1d1b33" stroke-width="5"/>
+      <text id="thumb" x="205" y="376" text-anchor="middle" font-size="40">👍</text>
+    </g>
+    <g id="headG">
+      <rect x="136" y="236" width="28" height="30" fill="#ffd9b8" stroke="#1d1b33" stroke-width="5"/>
+      <circle cx="52" cy="160" r="17" fill="#ffd9b8" stroke="#1d1b33" stroke-width="5"/>
+      <circle cx="248" cy="160" r="17" fill="#ffd9b8" stroke="#1d1b33" stroke-width="5"/>
+      <circle cx="150" cy="150" r="100" fill="#ffd9b8" stroke="#1d1b33" stroke-width="5"/>
+      <path d="M50 158 Q42 48 150 42 Q258 48 250 158 Q246 118 222 98 Q196 124 128 104 Q142 92 150 90 Q98 92 76 118 Q58 132 50 158 Z" fill="#2b2a3d" stroke="#1d1b33" stroke-width="5" stroke-linejoin="round"/>
+      <path d="M150 44 Q160 18 184 22 Q166 30 164 48" fill="#2b2a3d" stroke="#1d1b33" stroke-width="5" stroke-linejoin="round"/>
+      <path d="M106 118 Q121 108 138 114" fill="none" stroke="#1d1b33" stroke-width="7" stroke-linecap="round"/>
+      <path d="M162 114 Q179 108 194 118" fill="none" stroke="#1d1b33" stroke-width="7" stroke-linecap="round"/>
+      <g id="eyes">
+        <ellipse cx="121" cy="150" rx="9" ry="11" fill="#1d1b33"/><circle cx="124" cy="146" r="3.5" fill="#fff"/>
+        <ellipse cx="179" cy="150" rx="9" ry="11" fill="#1d1b33"/><circle cx="182" cy="146" r="3.5" fill="#fff"/>
+      </g>
+      <rect x="92" y="127" width="58" height="46" rx="16" fill="rgba(255,255,255,.28)" stroke="#1d1b33" stroke-width="5"/>
+      <rect x="150" y="127" width="58" height="46" rx="16" fill="rgba(255,255,255,.28)" stroke="#1d1b33" stroke-width="5"/>
+      <ellipse cx="96" cy="190" rx="15" ry="8" fill="#ff8fab" opacity=".6"/>
+      <ellipse cx="204" cy="190" rx="15" ry="8" fill="#ff8fab" opacity=".6"/>
+      <path id="smile" d="M130 196 Q150 216 170 196" fill="none" stroke="#1d1b33" stroke-width="6" stroke-linecap="round"/>
+      <g id="mouthO"><path d="M132 192 Q150 232 168 192 Z" fill="#9b2242" stroke="#1d1b33" stroke-width="5" stroke-linejoin="round"/><ellipse cx="150" cy="210" rx="9" ry="5" fill="#ff8fab"/></g>
+    </g>
+  </g>
+</svg>
+<div id="bubble"><span id="btxt"></span><svg id="tail" viewBox="0 0 60 56"><path d="M4 0 L30 50 L56 0" fill="#fff" stroke="#1d1b33" stroke-width="5" stroke-linejoin="round"/></svg></div>
+
+<canvas id="fx" width="1920" height="1080" style="z-index:6;pointer-events:none"></canvas>
+<div id="chrome"><div id="sec"></div><div id="prog"><div id="progf"></div></div><div id="clock"></div></div>
 </div>
-</div>
-<div id="ui"><button id="pp">⏸ 暫停</button><button id="rs">⟲ 重播</button><a href="../video/ISO27001_course_intro.mp4" target="_blank" rel="noopener"><button>🎬 有聲影片 MP4</button></a>　空白鍵暫停／點擊進度條跳轉</div>
+<div id="ui"><button id="pp">⏸ 暫停</button><button id="rs">⟲ 重播</button><a href="../video/ISO27001_course_intro.mp4" target="_blank" rel="noopener">🎬 有聲影片 MP4</a><a href="classic.html">經典版</a></div>
 
 <script>
 const DUR = 180;
 const $ = (s, r=document) => r.querySelector(s);
-const esc = s => s;
 
-/* ---------- build: history timeline ---------- */
-(function(){
-  const ev = [
-    ["1995","BS 7799","首次納入英國標準"],
-    ["1998","BS 7799-2","發布，首次稱為 ISMS"],
-    ["2000","ISO/IEC 17799","27002 的前身"],
-    ["2002","BS 7799-2","修訂 (導入 PDCA)"],
-    ["2005","ISO/IEC 27001","正式發布"],
-    ["2007","27002 · 27006 · 27799","相繼發布"],
-    ["2013","27001 / 27002","改版"],
-    ["2022","27001 / 27002","改版 ─ 現行版本"],
-  ];
-  let h = "";
+/* ================= dialogue (speech bubbles) ================= */
+// [start, end, text, pose]; pose while talking. Between lines Allan idles.
+const LINES = [
+  [0.9, 4.8, "哈囉大家好！\n我是 <b>Allan 老師</b> 👋", "wave"],
+  [5.0, 9.5, "3 分鐘，帶你\n秒懂 <b>ISO 27001</b>！", "cheer"],
+  [10.9, 18.4, "今天分三站：\n沿革 → 架構 → 附錄A\n出發囉！🚀", "point"],
+  [19.7, 25.4, "資安管理的老祖宗，\n是英國的 <b>BS 7799</b>！", "point"],
+  [25.8, 30.8, "2005 年正式成為\n<b>ISO 27001</b> 🎉", "cheer"],
+  [31.2, 35.6, "現在用的是\n<b>2022 新版</b> ✨", "point"],
+  [36.8, 41.8, "27001 是『規則』，\n驗證稽核就看它！", "point"],
+  [42.1, 46.1, "27002 是『攻略本』，\n教你控制措施怎麼做", "point"],
+  [46.4, 49.6, "兩者核心都是：\n<b>以風險為基礎</b>！", "thumb"],
+  [50.8, 55.4, "27000 家族\n成員超多的啦！", "cheer"],
+  [55.7, 60.5, "像 27005 風險管理、\n27701 隱私管理\n都是親戚喔～", "point"],
+  [61.8, 67.6, "第 4～10 章是<b>必考題</b>，\n一章都不能排除！", "point"],
+  [68.0, 75.4, "附錄 A 則是\n依風險<b>挑選</b>要用的\n控制措施", "point"],
+  [76.8, 81.8, "P-D-C-A 一直轉，\n資安越來越好！", "cheer"],
+  [82.1, 87.5, "中間的 <b>S 支援</b>\n是動力來源 💪\n資源、人力、能力", "point"],
+  [88.6, 93.6, "先搞懂內外部議題\n和關注方，\n再劃定範圍！", "point"],
+  [94.6, 99.6, "老闆要帶頭！\n承諾、政策、權責\n都要到位 👔", "point"],
+  [100.6, 105.6, "重頭戲來了！\n<b>風險評鑑 → 風險處理</b>", "point"],
+  [106.0, 111.5, "最後產出 <b>SoA</b>\n適用性聲明 📄", "thumb"],
+  [112.6, 117.6, "記住：是<b>能力導向</b>，\n不是上過課就好喔！", "point"],
+  [118.6, 122.6, "照計畫執行，\n重大變更時\n要重做風險評鑑", "point"],
+  [123.6, 128.6, "監視量測、內稽、\n管理審查，\n定期健康檢查！🩺", "point"],
+  [129.6, 133.6, "有不符合？\n找根因、矯正、\n<b>持續改善</b>！", "cheer"],
+  [134.8, 140.0, "附錄 A 有 4 大主題，\n共 <b>93 項</b>控制措施！", "cheer"],
+  [140.4, 147.4, "組織類最多 37 項，\n技術類 34 項\n緊追在後！", "point"],
+  [148.8, 153.8, "換個角度，\n從<b>流程面</b>來看…", "idle"],
+  [154.2, 160.5, "附錄 A 可以串成\n<b>15 項運作能力</b>！", "point"],
+  [161.8, 169.4, "每項控制還有\n5 種屬性標籤，\n好分類、好查找！", "point"],
+  [170.6, 175.0, "重點就三個：\n風險為本、PDCA、\n附錄 A！", "thumb"],
+  [175.3, 179.8, "有問題歡迎討論，\n我們下次見～ 👋", "wave"],
+];
+/* character placement: [time, x, bottom, scale] (moves over 0.8 s with a hop) */
+const MOVES = [[0,170,1000,1.35],[9.7,1560,1015,0.95]];
+
+/* ================= builders ================= */
+(function(){ // agenda
+  const c=[["1","沿革","從 BS 7799\n到 2022 新版","var(--bl)","#dbeaff",-3,160,420],["2","架構","PDCA 框架\n第 4～10 章","var(--gr)","#dcfff3",2,570,330],["3","附錄 A","4 主題 93 項\n15 項運作能力","var(--pu)","#ece5ff",-2,980,420]];
+  let h="";
+  c.forEach((x,i)=>{h+=`<div class="abs a sticker hl" data-t="${1.3+i*0.6}" data-fx="pop" data-rot="${x[5]}" data-hl="${3.4+i*1.5},${4.8+i*1.5}" style="left:${x[6]}px;top:${x[7]}px;width:330px;background:${x[4]};--hc:${x[3]}">
+    <div style="display:flex;align-items:center;gap:16px"><span class="fd" style="width:74px;height:74px;border-radius:50%;background:${x[3]};color:#fff;border:5px solid var(--ink);display:flex;align-items:center;justify-content:center;font-size:44px;font-weight:700">${x[0]}</span>
+    <span style="font-size:44px;font-weight:900">第 ${x[0]} 站</span></div>
+    <div style="font-size:40px;font-weight:900;margin:14px 0 6px;color:${x[3]}">${x[1]}</div>
+    <div style="font-size:26px;font-weight:700;white-space:pre-line" class="mute">${x[2]}</div></div>`;});
+  $("#agenda").innerHTML=h;
+})();
+(function(){ // history road
+  const ev=[["1995","BS 7799","英國標準誕生"],["1998","BS 7799-2","首次稱 ISMS"],["2000","ISO 17799","27002 前身"],["2002","BS 7799-2","修訂"],["2005","ISO 27001","正式發布！"],["2007","27002 等","陸續發布"],["2013","27001/27002","改版"],["2022","27001/27002","現行新版"]];
+  let h=`<svg class="abs" style="left:0;top:0" width="1920" height="1080">
+    <path class="a" data-t="0.7" data-fx="draw" data-d="1.4" pathLength="1" d="M110 600 H1300" stroke="#1d1b33" stroke-width="40" stroke-linecap="round" fill="none"/>
+    <path class="a" data-t="1.5" data-fx="draw" data-d="1.4" pathLength="1" d="M110 600 H1300" stroke="#ffd23f" stroke-width="26" stroke-linecap="round" fill="none"/>
+    <path class="a" data-t="2" data-fx="fade" d="M130 600 H1290" stroke="#1d1b33" stroke-width="4" stroke-dasharray="18 16" fill="none"/></svg>`;
   ev.forEach((e,i)=>{
-    const x = 200 + i*218, up = i%2===0, t = 1.2 + i*1.7, last = i===ev.length-1;
-    const col = last ? "var(--cyan)" : "#60a5fa";
-    h += `<div class="abs a" data-t="${t}" data-fx="pop" style="left:${x-22}px;top:618px;width:44px;height:44px;border-radius:50%;background:${last?'var(--cyan)':'#0d1b31'};border:6px solid ${col};box-shadow:0 0 ${last?40:14}px ${col}"></div>`;
-    h += `<div class="abs a card hl" data-t="${t+0.15}" data-fx="${up?'down':'up'}" ${last?'data-hl="15,17.5"':''}
-      style="left:${x-105}px;top:${up?388:704}px;width:210px;height:200px;padding:18px 16px;text-align:center;${last?'--hc:var(--cyan);border-color:var(--cyan)':''}">
-      <div class="num" style="font-size:44px;color:${col}">${e[0]}</div>
-      <div style="font-size:23px;font-weight:900;margin:6px 0;line-height:1.25">${e[1]}</div>
-      <div class="mute" style="font-size:20px;line-height:1.35">${e[2]}</div></div>`;
+    const x=160+i*155, up=i%2===0, t=1.8+i*1.9, hot=i===4||i===7;
+    const col = hot?"var(--pk)":"var(--bl)";
+    h+=`<div class="abs a" data-t="${t}" data-fx="stamp" style="left:${x-24}px;top:576px;width:48px;height:48px;border-radius:50%;background:${hot?'var(--pk)':'#fff'};border:5px solid var(--ink)"></div>
+      <div class="abs a sticker" data-t="${t+0.15}" data-fx="${up?'drop':'up'}" data-rot="${up?-2:2}" style="left:${x-72}px;top:${up?370:660}px;width:144px;height:180px;padding:14px 8px;text-align:center;${hot?'background:#ffe1ea':''}">
+      <div class="fd" style="font-size:40px;font-weight:700;color:${col}">${e[0]}</div>
+      <div style="font-size:20px;font-weight:900;line-height:1.3;margin-top:4px">${e[1]}</div>
+      <div style="font-size:19px;font-weight:700;margin-top:4px" class="mute">${e[2]}</div></div>`;
   });
-  $("#tlnodes").innerHTML = h;
+  h+=`<div class="abs a" data-t="1.6" data-fx="move" data-x0="0" data-x1="1085" data-d="14.2" style="left:136px;top:548px;font-size:56px;line-height:1">🏃</div>`;
+  $("#tl").innerHTML=h;
 })();
-
-/* ---------- build: family ---------- */
-(function(){
-  const g = [
-    ["共通性標準","var(--P)",[["27000","概觀與詞彙"],["27004","監視與量測"],["27005","資安風險管理"],["27006","驗證機構要求"],["27007","ISMS 稽核指引"]]],
-    ["產業 / 專業部門","var(--D)",[["27011","電信業"],["27015","金融業"],["27017","雲端服務"],["27018","公有雲個資"],["27019","能源公用事業"],["27799","健康醫療"]]],
-    ["特定主題","var(--S)",[["27031","營運持續 ICT 備妥"],["27034","應用系統安全"],["27035","資安事件管理"],["27036","供應商資安"],["27037","數位證據處理"],["27701","隱私資訊管理 PIMS"]]],
-  ];
-  let h = "";
+(function(){ // family
+  const g=[["共通基礎","var(--bl)","#dbeaff",[["27000","詞彙"],["27004","量測"],["27005","風險管理"],["27006","驗證機構"],["27007","稽核指引"]]],
+           ["產業專用","var(--gr)","#dcfff3",[["27011","電信"],["27015","金融"],["27017","雲端服務"],["27018","公有雲個資"],["27799","醫療"]]],
+           ["特定主題","var(--pu)","#ece5ff",[["27031","營運持續"],["27035","事件管理"],["27036","供應商"],["27037","數位證據"],["27701","隱私 PIMS"]]]];
+  let h="";
   g.forEach((c,i)=>{
-    h += `<div class="a card" data-t="${0.9+i*0.4}" data-fx="up" style="flex:1;height:620px;border-color:${c[1]}">
-      <div style="font-size:34px;font-weight:900;color:${c[1]};margin-bottom:16px">${c[0]}</div>`;
-    c[2].forEach((s,j)=>{
-      h += `<div class="a" data-t="${1.6+i*1.1+j*0.28}" data-fx="left" style="display:flex;align-items:center;gap:18px;margin:12px 0">
-        <span class="num" style="font-size:30px;min-width:110px;padding:4px 12px;border-radius:10px;background:color-mix(in srgb,${c[1]} 22%,transparent);color:#fff;text-align:center">${s[0]}</span>
-        <span style="font-size:28px">${s[1]}</span></div>`;
-    });
-    h += `</div>`;
+    h+=`<div class="a sticker" data-t="${0.9+i*0.4}" data-fx="pop" data-rot="${[-1.5,1,-1][i]}" style="flex:1;background:${c[2]};height:600px">
+      <div class="tag" style="background:${c[1]};color:#fff;font-size:30px">${c[0]}</div><div style="margin-top:18px;display:flex;flex-direction:column;gap:14px">`;
+    c[3].forEach((s,j)=>{h+=`<div class="a" data-t="${1.6+i*0.9+j*0.25}" data-fx="pop" style="display:flex;align-items:center;gap:14px">
+      <span class="fd" style="font-size:32px;font-weight:700;padding:2px 14px;border:4px solid var(--ink);border-radius:14px;background:#fff">${s[0]}</span><span style="font-size:30px;font-weight:900">${s[1]}</span></div>`;});
+    h+=`</div></div>`;
   });
-  $("#family").innerHTML = h;
+  $("#family").innerHTML=h;
 })();
-
-/* ---------- build: structure ---------- */
-(function(){
-  const pre = [["1","適用範圍"],["2","引用標準"],["3","名詞與定義"]];
-  const main = [["4","組織全景","P"],["5","領導作為","P"],["6","規劃","P"],["7","支援","S"],["8","運作","D"],["9","績效評估","C"],["10","改善","A"]];
-  const X0 = 120, W = 150, G = 14, Y = 360;
-  let h = "";
-  pre.forEach((p,i)=>{
-    h += `<div class="abs a card center" data-t="${1+i*0.2}" data-fx="up" style="left:${X0}px;top:${Y+i*120}px;width:230px;height:104px;padding:10px;opacity:.7">
-      <div style="font-size:26px;color:var(--mute)"><b class="num">${p[0]}</b>　${p[1]}</div></div>`;
-  });
-  h += `<div class="abs a mute" data-t="1.8" data-fx="fade" style="left:${X0}px;top:${Y+360}px;width:230px;text-align:center;font-size:22px">前言性質章節</div>`;
-  main.forEach((m,i)=>{
-    const x = 390 + i*(W+G);
-    h += `<div class="abs a card center hl" data-t="${2.2+i*0.3}" data-fx="pop" data-hl="${7+i*0.15},9.5"
-      style="left:${x}px;top:${Y}px;width:${W}px;height:220px;padding:10px;border-color:var(--${m[2]});--hc:var(--${m[2]})">
-      <div class="num" style="font-size:64px;color:var(--${m[2]})">${m[0]}</div>
-      <div style="font-size:28px;font-weight:900;text-align:center">${m[1]}</div></div>`;
-  });
-  const grp = [["P · 規劃",0,3,"P"],["S · 支援",3,1,"S"],["D · 執行",4,1,"D"],["C · 檢查",5,1,"C"],["A · 行動",6,1,"A"]];
-  grp.forEach((g,i)=>{
-    const x = 390 + g[1]*(W+G), w = g[2]*(W+G)-G;
-    h += `<div class="abs a center" data-t="${4.6+i*0.35}" data-fx="up" style="left:${x}px;top:${Y+236}px;width:${w}px;height:54px;border-radius:12px;background:var(--${g[3]});font-size:26px;font-weight:900">${g[0]}</div>`;
-  });
-  const ax = 390 + 7*(W+G);
-  h += `<div class="abs a card hl" data-t="6.2" data-fx="right" data-hl="10,13" style="left:${ax+20}px;top:${Y}px;width:${1800-ax-20}px;height:290px;border-color:var(--cyan);--hc:var(--cyan)">
-      <div style="font-size:32px;font-weight:900;color:var(--cyan)">附錄 A</div>
-      <div style="font-size:24px;color:var(--mute);margin-bottom:10px">控制措施 (規定)</div>
-      <div style="font-size:26px;line-height:1.55">A.5 組織<br>A.6 人員<br>A.7 實體<br>A.8 技術</div></div>`;
-  h += `<div class="abs a card" data-t="8" data-fx="up" style="left:390px;top:${Y+330}px;width:1410px;padding:22px 30px">
-      <div style="font-size:30px;line-height:1.7"><b style="color:var(--C)">第 4~10 章</b>：ISMS 建立、實作、維持與持續改善的要求 ─ <b>驗證必要，不得排除</b></div>
-      <div style="font-size:30px;line-height:1.7"><b style="color:var(--cyan)">附錄 A</b>：依組織需求與風險，決定需實施的安全控制措施 ─ <b>管理標準，而非技術標準</b></div></div>`;
-  $("#struct").innerHTML = h;
+(function(){ // structure
+  let h="";
+  [["1","範圍"],["2","引用標準"],["3","名詞定義"]].forEach((p,i)=>{
+    h+=`<div class="abs a chip" data-t="${0.9+i*0.2}" data-fx="pop" style="left:${90+i*200}px;top:270px;font-size:24px;background:#eee"><b class="fd">${p[0]}</b> ${p[1]}</div>`;});
+  h+=`<div class="abs a mute" data-t="1.6" data-fx="fade" style="left:715px;top:276px;font-size:24px;font-weight:700">← 前言，暖身用</div>`;
+  const m=[["4","組織全景","P"],["5","領導","P"],["6","規劃","P"],["7","支援","S"],["8","運作","D"],["9","績效評估","C"],["10","改善","A"]];
+  m.forEach((c,i)=>{const x=90+i*172;
+    h+=`<div class="abs a sticker hl" data-t="${2+i*0.3}" data-fx="drop" data-hl="6.8,9" style="left:${x}px;top:350px;width:158px;height:190px;padding:12px;text-align:center;background:var(--${c[2]});color:#fff;--hc:var(--pk)">
+      <div class="fd" style="font-size:72px;font-weight:700;-webkit-text-stroke:3px var(--ink);paint-order:stroke fill">${c[0]}</div>
+      <div style="font-size:28px;font-weight:900;text-shadow:2px 2px 0 var(--ink)">${c[1]}</div></div>`;});
+  [["P 規劃",0,3,"P"],["S 支援",3,1,"S"],["D 執行",4,1,"D"],["C 檢查",5,1,"C"],["A 行動",6,1,"A"]].forEach((g,i)=>{
+    const x=90+g[1]*172, w=g[2]*172-14;
+    h+=`<div class="abs a tag" data-t="${4.4+i*0.3}" data-fx="up" style="left:${x}px;top:562px;width:${w}px;text-align:center;background:#fff;color:var(--${g[3]})">${g[0]}</div>`;});
+  h+=`<div class="abs a" data-t="6.6" data-fx="stamp" data-rot="-8" style="left:900px;top:258px;padding:4px 18px;border:6px solid var(--pk);border-radius:12px;color:var(--pk);font-size:40px;font-weight:900;background:rgba(255,255,255,.85)">必考！不得排除</div>`;
+  h+=`<div class="abs a sticker" data-t="7.4" data-fx="pop" data-rot="1" style="left:90px;top:660px;width:1210px;background:#fff4c2;display:flex;align-items:center;gap:30px">
+      <span style="font-size:70px">🧩</span><div><div style="font-size:40px;font-weight:900">附錄 A：控制措施清單</div>
+      <div style="font-size:28px;font-weight:700" class="mute">A.5 組織 · A.6 人員 · A.7 實體 · A.8 技術 → 依風險挑選，寫進 SoA</div></div></div>`;
+  $("#struct").innerHTML=h;
 })();
-
-/* ---------- build: PSDCA cycle ---------- */
-(function(){
-  const R = 300, r0 = 150;
-  const q = [["P","規劃","建立 ISMS",-90],["D","執行","實作與操作",0],["C","檢查","監控與審查",90],["A","行動","維護及改進",180]];
-  let h = "";
-  q.forEach((s,i)=>{
-    const a0 = (s[3]-45+3)*Math.PI/180, a1 = (s[3]+45-3)*Math.PI/180;
-    const p = (a,r)=>`${(Math.cos(a)*r).toFixed(1)} ${(Math.sin(a)*r).toFixed(1)}`;
-    const d = `M${p(a0,R)} A${R} ${R} 0 0 1 ${p(a1,R)} L${p(a1,r0)} A${r0} ${r0} 0 0 0 ${p(a0,r0)} Z`;
-    const am = s[3]*Math.PI/180, tx = Math.cos(am)*225, ty = Math.sin(am)*225;
-    h += `<g class="a hlg" data-t="${2+i*0.9}" data-fx="pop" data-hl="${2.4+i*0.9},${3.4+i*0.9}" style="transform-origin:0 0">
-      <path d="${d}" fill="var(--${s[0]})" opacity=".92"/>
-      <text x="${tx}" y="${ty-14}" text-anchor="middle" font-size="46" font-weight="900" fill="#fff" >${s[0]}</text>
-      <text x="${tx}" y="${ty+22}" text-anchor="middle" font-size="24" font-weight="700" fill="#fff">${s[1]}</text>
-      <text x="${tx}" y="${ty+50}" text-anchor="middle" font-size="21" fill="#e6f0ff">${s[2]}</text></g>`;
-  });
-  h += `<g class="a" data-t="1.4" data-fx="pop" style="transform-origin:0 0"><circle r="${r0-14}" fill="#1a1036" stroke="var(--S)" stroke-width="5"/>
-    <text y="-26" text-anchor="middle" font-size="46" font-weight="900" fill="var(--S)" >S</text>
-    <text y="16" text-anchor="middle" font-size="26" font-weight="900" fill="#fff">支援</text>
-    <text y="50" text-anchor="middle" font-size="19" fill="#d8c8ff">資源、人力與能力</text></g>`;
-  h += `<g class="a" data-t="5.6" data-fx="spin" data-d="6"><circle cx="0" cy="-${R+22}" r="14" fill="#fff"/><circle cx="0" cy="-${R+22}" r="26" fill="none" stroke="#fff" stroke-opacity=".35" stroke-width="4"/></g>`;
-  $("#cyc").innerHTML = h;
+(function(){ // PSDCA wheel
+  const R=260,r0=118, q=[["P","規劃","建立 ISMS",-90],["D","執行","實作與操作",0],["C","檢查","監控與審查",90],["A","行動","維持與改進",180]];
+  const p=(a,r)=>`${(Math.cos(a)*r).toFixed(1)} ${(Math.sin(a)*r).toFixed(1)}`;
+  let h=`<g class="a" data-t="1.2" data-fx="spin" data-d="10"><circle r="${R+24}" fill="none" stroke="#1d1b33" stroke-width="5" stroke-dasharray="22 18"/></g>`;
+  q.forEach((s,i)=>{const a0=(s[3]-45+4)*Math.PI/180,a1=(s[3]+45-4)*Math.PI/180,am=s[3]*Math.PI/180,tx=Math.cos(am)*186,ty=Math.sin(am)*186;
+    h+=`<g class="a hlg" data-t="${2+i*0.9}" data-fx="pop" data-hl="${2.3+i*0.9},${3.3+i*0.9}">
+      <path d="M${p(a0,R)} A${R} ${R} 0 0 1 ${p(a1,R)} L${p(a1,r0)} A${r0} ${r0} 0 0 0 ${p(a0,r0)} Z" fill="var(--${s[0]})" stroke="#1d1b33" stroke-width="6" stroke-linejoin="round"/>
+      <text class="fdt" x="${tx}" y="${ty-18}" text-anchor="middle" font-size="58" font-weight="700" font-family="Fredoka" fill="#fff" stroke="#1d1b33" stroke-width="4" paint-order="stroke">${s[0]}</text>
+      <text x="${tx}" y="${ty+18}" text-anchor="middle" font-size="26" font-weight="900" fill="#fff" stroke="#1d1b33" stroke-width="4" paint-order="stroke">${s[1]}</text>
+      <text x="${tx}" y="${ty+44}" text-anchor="middle" font-size="19" font-weight="700" fill="#fff" stroke="#1d1b33" stroke-width="3" paint-order="stroke">${s[2]}</text></g>`;});
+  h+=`<g class="a" data-t="1.4" data-fx="pop"><circle r="${r0-12}" fill="#fff" stroke="#1d1b33" stroke-width="6"/>
+    <text class="fdt" y="-14" text-anchor="middle" font-size="60" font-weight="700" fill="var(--S)">S</text>
+    <text y="26" text-anchor="middle" font-size="28" font-weight="900" fill="#1d1b33">支援</text>
+    <text y="56" text-anchor="middle" font-size="18" font-weight="700" fill="#5b5876">資源·人力·能力</text></g>`;
+  $("#cyc").innerHTML=h;
 })();
-
-/* ---------- build: clauses ---------- */
-(function(){
-  const C = [
-    ["4","組織全景","Context of the organization","P",90,96,[
-      ["4.1","瞭解組織及其全景","決定影響 ISMS 預期成果的內部及外部議題（參照 ISO 31000）"],
-      ["4.2","瞭解關注方之需要及期望","識別關注方及其要求事項：法律、法規及契約義務"],
-      ["4.3","決定 ISMS 範圍","考量邊界、適用性、介面及相依性；範圍須文件化"],
-      ["4.4","資訊安全管理系統","建立、實作、維持及持續改善 ISMS 及所需過程"]]],
-    ["5","領導作為","Leadership","P",96,102,[
-      ["5.1","領導及承諾","政策與目標和策略方向相容、整合入組織過程、確保資源、推動持續改善"],
-      ["5.2","資訊安全政策","適合組織目的、含目標框架與承諾；文件化、內部傳達、適用時提供關注方"],
-      ["5.3","組織角色、責任及權限","指派並傳達權責：確保 ISMS 符合標準、向最高管理階層報告績效"]]],
-    ["6","規劃","Planning","P",102,114,null],
-    ["7","支援","Support","S",114,120,[
-      ["7.1","資源","提供建立、實作、維持及持續改善 ISMS 所需資源"],
-      ["7.2","能力","決定必要能力並留存證據 ─ 能力導向，而非訓練導向"],
-      ["7.3 / 7.4","認知與傳達","認知資安政策與違規後果；溝通的事項、時間、對象、方式"],
-      ["7.5","文件化資訊","制定與修訂（識別、格式、審查核准）及分發、存取、保存與銷毀之控制"]]],
-    ["8","運作","Operation","D",120,125,[
-      ["8.1","運作規劃與控制","建立過程準則、控制變更、確保外部提供之過程/產品/服務受控制"],
-      ["8.2","資訊安全風險評鑑","依規劃期間，或於重大變更時執行；保存結果"],
-      ["8.3","資訊安全風險處理","實作風險處理計畫；保存處理結果之文件化資訊"]]],
-    ["9","績效評估","Performance evaluation","C",125,131,[
-      ["9.1","監視、量測、分析與評估","量測什麼 WHAT、方法 HOW、時間 WHEN、負責人員 WHO"],
-      ["9.2","內部稽核","依規劃期間執行；確保客觀公正，結果向相關管理階層報告"],
-      ["9.3","管理審查","最高管理階層審查合宜性、適切性、有效性 → 改善決策與變更需要"]]],
-    ["10","改善","Improvement","A",131,136,null],
-  ];
-  const strip = cur => `<div class="strip">${C.map(c=>`<div class="${c[0]===cur?'cur':''}" style="--sc:var(--${c[3]})">${c[0]} ${c[1]}</div>`).join("")}</div>`;
-  let h = "";
-  C.forEach(c=>{
-    const col = `var(--${c[3]})`;
-    h += `<section class="scene" data-start="${c[4]}" data-end="${c[5]}" data-sec="02 條文 ${c[0]} ${c[1]}">${strip(c[0])}
-      <div class="title-bar" style="top:130px;display:flex;align-items:flex-end;gap:28px">
-        <div class="a num" data-t="0.15" data-fx="pop" style="font-size:150px;line-height:.9;color:${col}">${c[0]}</div>
-        <div><div class="a kicker" data-t="0.3" data-fx="left" style="color:${col}">${c[2].toUpperCase()}</div>
-        <div class="a h1" data-t="0.4" data-fx="left" style="font-size:70px">${c[1]}</div></div></div>`;
-    if (c[6]) {
-      const n = c[6].length, top = 380, H = n===4 ? 128 : 160, gap = 22;
-      c[6].forEach((it,i)=>{
-        h += `<div class="abs a card" data-t="${0.8+i*0.55}" data-fx="left" style="left:120px;right:120px;top:${top+i*(H+gap)}px;height:${H}px;display:flex;align-items:center;gap:34px;border-left:10px solid ${col};padding:0 36px">
-          <div class="num" style="font-size:40px;color:${col};min-width:170px">${it[0]}</div>
-          <div><div style="font-size:36px;font-weight:900">${it[1]}</div>
-          <div class="mute" style="font-size:26px;margin-top:6px">${it[2]}</div></div></div>`;
-      });
-    } else if (c[0]==="6") {
-      const steps = [["風險準則","接受準則 / 評鑑準則"],["識別","機密·完整·可用<br>風險當責者"],["分析","後果 × 可能性<br>判定風險等級"],["評估","比較準則<br>排定處理優先序"],["處理","降低·避免·分攤·接受"],["適用性聲明","SoA 對照附錄 A<br>納入/排除理由"],["處理計畫","風險擁有者核准<br>接受剩餘風險"]];
-      h += `<div class="abs a kicker" data-t="0.7" data-fx="fade" style="left:120px;top:350px;color:var(--ink);letter-spacing:2px;font-size:30px">6.1 因應風險及機會之行動 ─ 風險評鑑 (6.1.2) → 風險處理 (6.1.3)</div>`;
-      steps.forEach((s,i)=>{
-        const x = 120 + i*243;
-        h += `<div class="abs a card hl" data-t="${1.1+i*0.6}" data-fx="pop" data-hl="${1.3+i*0.6},${2.1+i*0.6}" style="left:${x}px;top:420px;width:218px;height:230px;padding:18px 14px;text-align:center;border-color:${i<4?'var(--P)':(i<6?'var(--cyan)':'var(--D)')};--hc:var(--cyan)">
-          <div class="num" style="font-size:30px;color:var(--mute)">0${i+1}</div>
-          <div style="font-size:32px;font-weight:900;margin:6px 0 10px">${s[0]}</div>
-          <div class="mute" style="font-size:21px;line-height:1.45">${s[1]}</div></div>`;
-        if (i<6) h += `<div class="abs a" data-t="${1.4+i*0.6}" data-fx="fade" style="left:${x+212}px;top:510px;font-size:34px;color:var(--cyan)">›</div>`;
-      });
-      h += `<div class="abs a card" data-t="6.2" data-fx="up" style="left:120px;top:690px;width:830px;height:250px;border-left:10px solid var(--P)">
-          <div style="font-size:32px;font-weight:900"><span class="num" style="color:var(--P)">6.2</span>　資訊安全目標及達成規劃</div>
-          <div class="mute" style="font-size:25px;line-height:1.6;margin-top:10px">與政策一致、可量測、受監視、被傳達、文件化<br>規劃：做什麼、資源、負責人、完成時間、評估方式</div></div>
-        <div class="abs a card" data-t="6.8" data-fx="up" style="left:980px;top:690px;width:820px;height:250px;border-left:10px solid var(--P)">
-          <div style="font-size:32px;font-weight:900"><span class="num" style="color:var(--P)">6.3</span>　變更之規劃 <span class="pill" style="font-size:18px;color:var(--C);vertical-align:middle;padding:4px 12px">2022 新增</span></div>
-          <div class="mute" style="font-size:25px;line-height:1.6;margin-top:10px">組織決定需要變更 ISMS 時<br>應以「規劃」之方式執行變更</div></div>`;
+(function(){ // clauses
+  const C=[["4","組織全景","P",88,94,[["4.1","內外部議題","影響 ISMS 成果的內外部因素"],["4.2","關注方期望","法律、法規、契約義務"],["4.3","ISMS 範圍","邊界、介面、相依性，要文件化"],["4.4","建立 ISMS","建立、實作、維持、持續改善"]]],
+           ["5","領導作為","P",94,100,[["5.1","領導與承諾","政策目標與策略方向一致、給資源"],["5.2","資安政策","文件化、內部傳達、需要時提供關注方"],["5.3","角色與權責","指派權責，向高層報告績效"]]],
+           ["6","規劃","P",100,112,null],
+           ["7","支援","S",112,118,[["7.1","資源","建立與維持 ISMS 所需資源"],["7.2","能力","能力導向，而非訓練導向，要留證據"],["7.3/7.4","認知與溝通","懂政策與違規後果；溝通什麼、何時、對誰"],["7.5","文件化資訊","制定、修訂、分發、存取、保存、銷毀"]]],
+           ["8","運作","D",118,123,[["8.1","運作規劃與控制","訂準則、管變更、外包也要受控制"],["8.2","風險評鑑","定期做，重大變更時也要做"],["8.3","風險處理","實作風險處理計畫並留紀錄"]]],
+           ["9","績效評估","C",123,129,[["9.1","監視與量測","量什麼、怎麼量、何時量、誰負責"],["9.2","內部稽核","依計畫執行，客觀公正"],["9.3","管理審查","高層審查 → 改善決策與變更"]]],
+           ["10","改善","A",129,134,null]];
+  const strip=cur=>`<div class="strip">${C.map(c=>`<div class="${c[0]===cur?'cur':''}" style="--sc:var(--${c[2]})">${c[0]} ${c[1]}</div>`).join("")}</div>`;
+  let h="";
+  C.forEach(c=>{const col=`var(--${c[2]})`;
+    h+=`<section class="scene" data-start="${c[3]}" data-end="${c[4]}" data-sec="第 2 站 · 第 ${c[0]} 章 ${c[1]}">${strip(c[0])}
+      <div class="abs" style="left:90px;top:130px;display:flex;align-items:center;gap:26px">
+        <div class="a fd" data-t="0.15" data-fx="stamp" data-rot="-6" style="width:140px;height:140px;border-radius:32px;background:${col};border:6px solid var(--ink);box-shadow:6px 6px 0 var(--ink);display:flex;align-items:center;justify-content:center;font-size:${c[0].length>1?76:92}px;font-weight:700;color:#fff;-webkit-text-stroke:3px var(--ink);paint-order:stroke fill">${c[0]}</div>
+        <div class="a ttl" data-t="0.4" data-fx="left">第 ${c[0]} 章 <span class="mark">${c[1]}</span></div></div>`;
+    if(c[5]){const n=c[5].length,H=n===4?140:175;
+      c[5].forEach((it,i)=>{h+=`<div class="abs a sticker" data-t="${0.8+i*0.5}" data-fx="left" data-rot="${i%2?0.6:-0.6}" style="left:90px;top:${320+i*(H+18)}px;width:1210px;height:${H}px;display:flex;align-items:center;gap:28px;padding:0 28px">
+        <span class="fd" style="min-width:150px;text-align:center;font-size:36px;font-weight:700;padding:4px 10px;border:4px solid var(--ink);border-radius:16px;background:${col};color:#fff">${it[0]}</span>
+        <div><div style="font-size:36px;font-weight:900">${it[1]}</div><div style="font-size:26px;font-weight:700" class="mute">${it[2]}</div></div></div>`;});
+    } else if(c[0]==="6"){
+      const s=[["🎯","風險準則","接受準則"],["🔍","識別","C·I·A 風險\n風險當責者"],["📐","分析","後果×可能性"],["⚖️","評估","排優先序"],["🛠️","處理","降低·避免\n分攤·接受"],["📄","SoA","適用性聲明"],["✅","處理計畫","擁有者核准"]];
+      h+=`<div class="abs a tag" data-t="0.7" data-fx="pop" style="left:90px;top:300px;background:#fff">6.1 風險評鑑 → 風險處理</div>`;
+      s.forEach((x,i)=>{const X=90+i*174;
+        h+=`<div class="abs a sticker hl" data-t="${1.1+i*0.55}" data-fx="drop" data-rot="${i%2?2:-2}" data-hl="${1.3+i*0.55},${2.1+i*0.55}" style="left:${X}px;top:380px;width:158px;height:230px;padding:14px 8px;text-align:center;--hc:var(--pk);${i>=5?'background:#fff4c2':''}">
+          <div style="font-size:50px">${x[0]}</div><div style="font-size:30px;font-weight:900;margin:4px 0">${x[1]}</div>
+          <div style="font-size:20px;font-weight:700;white-space:pre-line;line-height:1.35" class="mute">${x[2]}</div></div>`;});
+      h+=`<div class="abs a sticker" data-t="6.2" data-fx="up" data-rot="-1" style="left:90px;top:680px;width:590px;height:220px;background:#dbeaff">
+          <div style="font-size:34px;font-weight:900"><span class="fd" style="color:var(--P)">6.2</span> 資安目標</div>
+          <div style="font-size:24px;font-weight:700;line-height:1.6;margin-top:6px">一致、可量測、受監視、會傳達<br>要訂：做什麼、資源、誰、何時、怎麼評</div></div>
+        <div class="abs a sticker" data-t="6.8" data-fx="up" data-rot="1" style="left:710px;top:680px;width:590px;height:220px;background:#dbeaff">
+          <div style="font-size:34px;font-weight:900"><span class="fd" style="color:var(--P)">6.3</span> 變更之規劃 <span class="chip" style="background:var(--y);font-size:18px">2022 新增</span></div>
+          <div style="font-size:24px;font-weight:700;line-height:1.6;margin-top:6px">ISMS 要變更時，<br>必須「有規劃地」進行</div></div>`;
     } else {
-      const f = ["發現不符合","控制並矯正","處理後果","根因分析","檢查類似情形","審查有效性","文件化證據"];
-      h += `<div class="abs a card" data-t="0.8" data-fx="left" style="left:120px;right:120px;top:370px;height:150px;display:flex;align-items:center;gap:34px;border-left:10px solid var(--A);padding:0 36px">
-          <div class="num" style="font-size:40px;color:var(--A);min-width:170px">10.1</div>
-          <div><div style="font-size:36px;font-weight:900">持續改善</div><div class="mute" style="font-size:26px;margin-top:6px">持續改善 ISMS 之合宜性、適切性及有效性</div></div></div>
-        <div class="abs a kicker" data-t="1.3" data-fx="fade" style="left:120px;top:570px;color:var(--ink);letter-spacing:2px;font-size:30px"><span class="num" style="color:var(--A)">10.2</span>　不符合事項與矯正措施</div>`;
-      f.forEach((s,i)=>{
-        const x = 120 + i*243;
-        h += `<div class="abs a card center" data-t="${1.6+i*0.35}" data-fx="pop" style="left:${x}px;top:640px;width:218px;height:150px;padding:12px;text-align:center;border-color:${i===3?'var(--A)':'var(--line)'}">
-          <div class="num" style="font-size:26px;color:var(--A)">${i+1}</div><div style="font-size:26px;font-weight:900;margin-top:6px">${s}</div></div>`;
-        if (i<6) h += `<div class="abs a" data-t="${1.8+i*0.35}" data-fx="fade" style="left:${x+214}px;top:688px;font-size:34px;color:var(--A)">›</div>`;
-      });
-      h += `<div class="abs a mute" data-t="4.2" data-fx="up" style="left:0;right:0;top:840px;text-align:center;font-size:27px">消除原因，使其不再發生、且不於他處發生</div>`;
+      h+=`<div class="abs a sticker" data-t="0.8" data-fx="left" style="left:90px;top:320px;width:1210px;display:flex;align-items:center;gap:28px;padding:18px 28px">
+          <span class="fd" style="min-width:150px;text-align:center;font-size:36px;font-weight:700;padding:4px 10px;border:4px solid var(--ink);border-radius:16px;background:var(--A);color:#fff">10.1</span>
+          <div><div style="font-size:36px;font-weight:900">持續改善</div><div style="font-size:26px;font-weight:700" class="mute">讓 ISMS 更合宜、更適切、更有效</div></div></div>
+        <div class="abs a tag" data-t="1.2" data-fx="pop" style="left:90px;top:500px;background:#fff">10.2 不符合事項與矯正措施</div>`;
+      const f=["🚨 發現不符合","🧯 控制矯正","🩹 處理後果","🔬 根因分析","👀 查類似案","🔁 審查有效性","📁 留存證據"];
+      f.forEach((s,i)=>{const X=90+i*174;
+        h+=`<div class="abs a sticker" data-t="${1.5+i*0.3}" data-fx="pop" data-rot="${i%2?2:-2}" style="left:${X}px;top:580px;width:158px;height:170px;padding:12px 6px;text-align:center;${i===3?'background:#ffe1ea':''}">
+          <div style="font-size:48px">${s.split(" ")[0]}</div><div style="font-size:24px;font-weight:900;margin-top:6px">${s.split(" ")[1]}</div></div>`;});
+      h+=`<div class="abs a" data-t="3.8" data-fx="up" style="left:90px;top:790px;width:1210px;text-align:center;font-size:30px;font-weight:900">目標：<span class="mark">不再發生，也不在別處發生</span></div>`;
     }
-    h += `</section>`;
-  });
-  $("#clauses").innerHTML = h;
+    h+=`</section>`;});
+  $("#clauses").innerHTML=h;
+})();
+(function(){ // annex
+  const A=[["A.5","組織",37,"var(--bl)","#dbeaff","🏢",["資安政策","威脅情資","供應者關係","事故管理"]],
+           ["A.6","人員",8,"var(--gr)","#dcfff3","👥",["人員篩選","認知訓練","保密協議","離職責任"]],
+           ["A.7","實體",14,"var(--or)","#fff0d6","🚪",["實體周界","進出管制","設備保護","儲存媒體"]],
+           ["A.8","技術",34,"var(--pk)","#ffe1ea","💻",["端點裝置","防惡意軟體","資料外洩預防","密碼技術"]]];
+  let h="";
+  A.forEach((a,i)=>{h+=`<div class="a sticker" data-t="${1.2+i*0.45}" data-fx="drop" data-rot="${[-2,1.5,-1,2][i]}" style="flex:1;height:640px;background:${a[4]};text-align:center">
+    <div style="font-size:64px">${a[5]}</div><div class="fd" style="font-size:36px;font-weight:700;color:${a[3]}">${a[0]}</div><div style="font-size:44px;font-weight:900">${a[1]}</div>
+    <div class="fd" style="font-size:110px;font-weight:700;line-height:1.05;color:#fff;-webkit-text-stroke:5px var(--ink);paint-order:stroke fill;text-shadow:5px 5px 0 var(--ink)"><span class="a" data-t="${1.6+i*0.45}" data-fx="count" data-n="${a[2]}" data-d="1.4">${a[2]}</span></div>
+    <div style="height:24px;border:4px solid var(--ink);border-radius:999px;background:#fff;margin:10px 6px 18px;overflow:hidden"><div class="a" data-t="${1.6+i*0.45}" data-fx="bar" data-n="${(a[2]/37*100).toFixed(1)}" data-d="1.4" style="height:100%;background:${a[3]}"></div></div>
+    <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center">${a[6].map((x,j)=>`<span class="a chip" data-t="${3.6+i*0.5+j*0.25}" data-fx="pop">${x}</span>`).join("")}</div></div>`;});
+  $("#annex").innerHTML=h;
+})();
+(function(){ // caps
+  const c=["治理","人資安全","資訊保護","資產管理","存取管理","保全組態","實體安全","威脅與弱點","應用程式安全","系統網路安全","供應者安全","資安事件管理","持續性","資安保證","遵循性"];
+  const e=["🏛️","👤","🔐","🗂️","🔑","⚙️","🏢","🎯","💻","🌐","🤝","🚨","♻️","✅","⚖️"];
+  const bgc=["#dbeaff","#dcfff3","#ece5ff","#fff0d6","#ffe1ea"];
+  let h="";
+  c.forEach((s,i)=>{h+=`<div class="a sticker hl" data-t="${1+i*0.4}" data-fx="pop" data-rot="${[-2,1.5,-1,2,-1.5][i%5]}" data-hl="${1.1+i*0.4},${1.8+i*0.4}" style="height:176px;padding:14px;text-align:center;background:${bgc[i%5]};--hc:var(--pk)">
+    <div style="font-size:52px;line-height:1.1">${e[i]}</div><div class="fd" style="font-size:22px;font-weight:700" >A${String(i+1).padStart(2,"0")}</div><div style="font-size:28px;font-weight:900">${s}</div></div>`;});
+  $("#caps").innerHTML=h;
+})();
+(function(){ // attrs
+  const at=[["控制類型","var(--bl)",["預防","偵測","矯正"]],["資安特性","var(--gr)",["機密性 C","完整性 I","可用性 A"]],["網宇安全概念","var(--or)",["識別","保護","偵測","回應","復原"]],["運作能力","var(--pu)",["治理","資產管理","存取管理","…共 15 項"]],["安全領域","var(--pk)",["治理與生態系","保護","防禦","韌性"]]];
+  let h="";
+  at.forEach((a,i)=>{h+=`<div class="a sticker" data-t="${0.9+i*0.5}" data-fx="left" data-rot="${i%2?0.5:-0.5}" style="display:flex;align-items:center;gap:24px;padding:14px 24px">
+    <span class="tag" style="min-width:250px;text-align:center;background:${a[1]};color:#fff;font-size:28px">🏷️ ${a[0]}</span>
+    <div style="display:flex;gap:12px;flex-wrap:wrap">${a[2].map((x,j)=>`<span class="a chip" data-t="${1.2+i*0.5+j*0.15}" data-fx="pop" style="font-size:25px">${x}</span>`).join("")}</div></div>`;});
+  $("#attrs").innerHTML=h;
 })();
 
-/* ---------- build: annex A ---------- */
-(function(){
-  const A = [["A.5","組織","Organizational",37,"var(--P)",["資訊安全政策","威脅情資","資訊分類分級與標示","供應者關係","資安事故管理","法律法規遵循"]],
-             ["A.6","人員","People",8,"var(--D)",["聘用前：篩選","聘用中：認知與訓練","保密協議","聘用終止之責任"]],
-             ["A.7","實體","Physical",14,"var(--C)",["實體安全周界","實體進入","設備安置及保護","儲存媒體"]],
-             ["A.8","技術","Technological",34,"var(--A)",["使用者端點裝置","防範惡意軟體","資料洩漏預防","密碼技術","安全開發 / 委外開發"]]];
-  let h = "";
-  A.forEach((a,i)=>{
-    h += `<div class="a card" data-t="${1.2+i*0.5}" data-fx="up" style="flex:1;height:620px;border-top:10px solid ${a[4]}">
-      <div style="display:flex;justify-content:space-between;align-items:baseline">
-        <div><div class="num" style="font-size:36px;color:${a[4]}">${a[0]}</div><div style="font-size:44px;font-weight:900">${a[1]}</div><div class="mute" style="font-size:20px">${a[2]}</div></div>
-        <div class="num" style="font-size:96px;color:${a[4]}"><span class="a" data-t="${1.6+i*0.5}" data-fx="count" data-n="${a[3]}" data-d="1.6">${a[3]}</span></div></div>
-      <div style="height:14px;border-radius:7px;background:rgba(255,255,255,.08);margin:12px 0 20px;overflow:hidden">
-        <div class="a" data-t="${1.6+i*0.5}" data-fx="bar" data-n="${(a[3]/37*100).toFixed(1)}" data-d="1.6" style="height:100%;background:${a[4]}"></div></div>
-      <ul class="dots" style="--dc:${a[4]}">${a[5].map((x,j)=>`<li class="a" data-t="${3.6+i*0.6+j*0.3}" data-fx="left" style="font-size:25px;margin:8px 0">${x}</li>`).join("")}</ul></div>`;
-  });
-  $("#annex").innerHTML = h;
-})();
+/* ================= engine ================= */
+const clamp=x=>x<0?0:x>1?1:x, eo=x=>1-Math.pow(1-x,3), eio=x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;
+const back=x=>{const c1=1.9,c3=c1+1;return 1+c3*Math.pow(x-1,3)+c1*Math.pow(x-1,2);};
+const scenes=[...document.querySelectorAll(".scene")].map(s=>({el:s,s:+s.dataset.start,e:+s.dataset.end,sec:s.dataset.sec,
+  items:[...s.querySelectorAll(".a")].map(el=>({el,t:+el.dataset.t||0,fx:el.dataset.fx||"up",d:+(el.dataset.d||(el.dataset.fx==="stamp"?0.45:0.6)),n:+(el.dataset.n||0),
+    rot:+(el.dataset.rot||0),x0:+(el.dataset.x0||0),x1:+(el.dataset.x1||0),hl:el.dataset.hl?el.dataset.hl.split(",").map(Number):null}))}));
 
-/* ---------- build: 15 capabilities ---------- */
-(function(){
-  const c = ["治理","人資安全","資訊保護","資產管理","存取管理","保全組態","實體安全","威脅與弱點","應用程式安全","系統網路安全","供應者安全","資安事件管理","持續性","資訊安全保證","遵循性"];
-  const e = ["🏛️","👤","🔐","🗂️","🔑","⚙️","🏢","🎯","💻","🌐","🤝","🚨","♻️","✅","⚖️"];
-  const cols = ["var(--P)","var(--D)","var(--S)","var(--C)","var(--A)"];
-  let h = "";
-  c.forEach((s,i)=>{
-    const col = cols[i%5];
-    h += `<div class="a card hl" data-t="${1+i*0.42}" data-fx="pop" data-hl="${1.1+i*0.42},${1.9+i*0.42}" style="height:190px;padding:18px 20px;--hc:${col};border-color:color-mix(in srgb,${col} 55%,var(--line))">
-      <div style="display:flex;justify-content:space-between;align-items:center"><span class="num" style="font-size:30px;color:${col}">A${String(i+1).padStart(2,"0")}</span><span style="font-size:40px">${e[i]}</span></div>
-      <div style="font-size:31px;font-weight:900;margin-top:22px">${s}</div></div>`;
-  });
-  $("#caps").innerHTML = h;
-})();
-
-/* ---------- build: attributes ---------- */
-(function(){
-  const at = [["控制類型","Control type","var(--P)",["預防 Preventive","偵測 Detective","矯正 Corrective"]],
-              ["資訊安全特性","Security properties","var(--D)",["機密性 C","完整性 I","可用性 A"]],
-              ["網宇安全概念","Cybersecurity concepts","var(--C)",["識別","保護","偵測","回應","復原"]],
-              ["運作能力","Operational capabilities","var(--S)",["治理","資產管理","存取管理","… 共 15 項"]],
-              ["安全領域","Security domains","var(--A)",["治理與生態系","保護","防禦","韌性"]]];
-  let h = "";
-  at.forEach((a,i)=>{
-    h += `<div class="a card" data-t="${0.9+i*0.55}" data-fx="left" style="height:104px;display:flex;align-items:center;gap:30px;padding:0 32px;border-left:10px solid ${a[2]}">
-      <div style="min-width:330px"><div style="font-size:32px;font-weight:900">${a[0]}</div><div class="mute" style="font-size:19px">${a[1]}</div></div>
-      <div style="display:flex;gap:14px;flex-wrap:wrap">${a[3].map((x,j)=>`<span class="a pill" data-t="${1.2+i*0.55+j*0.15}" data-fx="pop" style="color:${a[2]};font-size:23px">${x}</span>`).join("")}</div></div>`;
-  });
-  $("#attrs").innerHTML = h;
-})();
-
-/* ---------- engine ---------- */
-const clamp = x => x<0?0:x>1?1:x;
-const eo = x => 1-Math.pow(1-x,3);
-const back = x => { const c1=1.70158,c3=c1+1; return 1+c3*Math.pow(x-1,3)+c1*Math.pow(x-1,2); };
-const scenes = [...document.querySelectorAll(".scene")].map(s=>({el:s,s:+s.dataset.start,e:+s.dataset.end,sec:s.dataset.sec,
-  items:[...s.querySelectorAll(".a")].map(el=>({el,t:+el.dataset.t||0,fx:el.dataset.fx||"up",d:+(el.dataset.d||0.7),n:+(el.dataset.n||0),
-    hl:el.dataset.hl?el.dataset.hl.split(",").map(Number):null}))}));
-
-function applyItem(it, lt){
-  const p = clamp((lt-it.t)/it.d), q = eo(p);
-  const el = it.el; let tf = "", op = 1;
+function applyItem(it,lt){
+  const p=clamp((lt-it.t)/it.d),q=eo(p),el=it.el;let tf="",op=1;
   switch(it.fx){
-    case "up": op=q; tf=`translateY(${(1-q)*40}px)`; break;
-    case "down": op=q; tf=`translateY(${-(1-q)*40}px)`; break;
-    case "left": op=q; tf=`translateX(${-(1-q)*60}px)`; break;
-    case "right": op=q; tf=`translateX(${(1-q)*60}px)`; break;
-    case "fade": op=q; break;
-    case "zoom": op=q; tf=`scale(${1.25-0.25*q})`; break;
-    case "pop": op=clamp(p*2.5); tf=`scale(${p<=0?0.5:0.5+0.5*back(p)})`; break;
-    case "draw": el.style.strokeDasharray="1 1"; el.style.strokeDashoffset=String(1-q); return;
-    case "count": el.textContent = Math.round(it.n*q); return;
-    case "bar": el.style.width = (it.n*q)+"%"; return;
-    case "spin": op=clamp(p*4); { const ang = lt<it.t?0:((lt-it.t)/it.d)*360; tf=`rotate(${ang}deg)`; } break;
+    case "up":op=q;tf=`translateY(${(1-q)*50}px)`;break;
+    case "drop":op=clamp(p*3);tf=`translateY(${p<=0?-120:-(1-back(p))*120}px)`;break;
+    case "left":op=q;tf=`translateX(${-(1-q)*70}px)`;break;
+    case "fade":op=q;break;
+    case "pop":op=clamp(p*3);tf=`scale(${p<=0?0.3:0.3+0.7*back(p)})`;break;
+    case "stamp":op=clamp(p*4);tf=`scale(${p<=0?2.4:1+1.4*Math.pow(1-p,3)}) rotate(${(1-q)*-12}deg)`;break;
+    case "draw":el.style.strokeDasharray="1 1";el.style.strokeDashoffset=String(1-eio(p));return;
+    case "count":el.textContent=Math.round(it.n*q);return;
+    case "bar":el.style.width=(it.n*q)+"%";return;
+    case "move":op=clamp((lt-it.t)*3);{const k=clamp((lt-it.t)/it.d);tf=`translateX(${it.x0+(it.x1-it.x0)*k}px) translateY(${-Math.abs(Math.sin(lt*9))*14}px)`;}break;
+    case "spin":op=clamp(p*3);tf=`rotate(${Math.max(0,lt-it.t)*36}deg)`;break;
   }
-  let h = 0;
-  if (it.hl){ const [a,b]=it.hl; h = Math.min(clamp((lt-a)/0.35), clamp((b-lt)/0.35)); }
-  if (h>0){ tf += ` scale(${1+0.04*eo(h)})`; }
-  el.style.setProperty("--h", h.toFixed(3));
-  if (el.classList.contains("hlg")) el.style.filter = h>0?`drop-shadow(0 0 ${20*h}px #fff) brightness(${1+0.25*h})`:"";
-  el.style.opacity = op;
-  el.style.transform = tf;
+  if(it.rot) tf+=` rotate(${it.rot}deg)`;
+  let h=0;
+  if(it.hl){const[a,b]=it.hl;h=Math.min(clamp((lt-a)/0.3),clamp((b-lt)/0.3));}
+  if(h>0) tf+=` scale(${1+0.05*eo(h)}) rotate(${Math.sin(lt*14)*1.2*h}deg)`;
+  el.style.setProperty("--h",h.toFixed(3));
+  if(el.classList.contains("hlg")) el.style.filter=h>0?`brightness(${1+0.2*h})`:"";
+  el.style.opacity=op; el.style.transform=tf;
 }
 
-/* background particles (deterministic) */
-const bg = $("#bg").getContext("2d");
-let seed = 7; const rnd = ()=> (seed = (seed*16807)%2147483647)/2147483647;
-const parts = Array.from({length:70},()=>({x:rnd()*1920,y:rnd()*1080,r:1+rnd()*2.4,sp:0.2+rnd()*0.8,ph:rnd()*6.28,hex:rnd()<0.18}));
-function drawBg(t){
-  bg.clearRect(0,0,1920,1080);
-  bg.strokeStyle="rgba(96,165,250,0.06)"; bg.lineWidth=1;
-  const off = (t*12)%80;
-  for(let x=-80+off;x<1920;x+=80){bg.beginPath();bg.moveTo(x,0);bg.lineTo(x,1080);bg.stroke();}
-  for(let y=-80+off*0.5;y<1080;y+=80){bg.beginPath();bg.moveTo(0,y);bg.lineTo(1920,y);bg.stroke();}
-  const pts = parts.map(p=>({x:(p.x+Math.sin(t*0.3*p.sp+p.ph)*60+t*8*p.sp)%1960-20,y:(p.y+Math.cos(t*0.25*p.sp+p.ph)*40-t*5*p.sp+2160)%1100-10,p}));
-  for(let i=0;i<pts.length;i++)for(let j=i+1;j<pts.length;j++){
-    const dx=pts[i].x-pts[j].x, dy=pts[i].y-pts[j].y, d=dx*dx+dy*dy;
-    if(d<150*150){bg.strokeStyle=`rgba(34,211,238,${0.10*(1-Math.sqrt(d)/150)})`;bg.beginPath();bg.moveTo(pts[i].x,pts[i].y);bg.lineTo(pts[j].x,pts[j].y);bg.stroke();}
+/* ---------- Allan ---------- */
+const A={root:$("#allan"),body:$("#body"),armL:$("#armL"),armR:$("#armR"),head:$("#headG"),eyes:$("#eyes"),smile:$("#smile"),mo:$("#mouthO"),ptr:$("#pointer"),ptip:$("#ptip"),thumb:$("#thumb"),hand:$("#handR")};
+const SEG=[]; {let last=0; LINES.forEach(l=>{ if(l[0]>last) SEG.push([last,l[0],"idle"]); SEG.push([l[0],l[1],l[3]]); last=l[1]; }); SEG.push([last,1e9,"idle"]);}
+function poseAngles(p,t){
+  switch(p){
+    case "wave": return [8+3*Math.sin(t*2),-148+24*Math.sin(t*9)];
+    case "point":return [122+4*Math.sin(t*3),-10-3*Math.sin(t*2)];
+    case "cheer":return [150+12*Math.sin(t*8),-150-12*Math.sin(t*8)];
+    case "thumb":return [10+3*Math.sin(t*2),-128+4*Math.sin(t*4)];
+    default:     return [10+4*Math.sin(t*2),-10-4*Math.sin(t*2)];
   }
-  pts.forEach(({x,y,p})=>{
-    const a = 0.25+0.25*Math.sin(t*1.3+p.ph);
-    if(p.hex){ bg.strokeStyle=`rgba(129,140,248,${a})`; bg.beginPath();
-      for(let k=0;k<6;k++){const an=k*Math.PI/3+t*0.2; bg.lineTo(x+Math.cos(an)*p.r*5,y+Math.sin(an)*p.r*5);} bg.closePath(); bg.stroke(); }
-    else { bg.fillStyle=`rgba(103,232,249,${a})`; bg.beginPath(); bg.arc(x,y,p.r,0,6.283); bg.fill(); }
+}
+function allanPose(t){
+  const i=SEG.findIndex(s=>t>=s[0]&&t<s[1]); const cur=SEG[i], prev=SEG[i-1]||cur;
+  const w=eo(clamp((t-cur[0])/0.35));
+  const a=poseAngles(prev[2],t), b=poseAngles(cur[2],t);
+  const wt=(p)=>(cur[2]===p?w:0)+(prev[2]===p?1-w:0);
+  return {L:a[0]+(b[0]-a[0])*w, R:a[1]+(b[1]-a[1])*w, ptr:wt("point"), thumb:wt("thumb"), jump:cur[2]==="cheer"?Math.abs(Math.sin(t*5))*16*w:0};
+}
+function allanPos(t){
+  let k=0; for(let i=0;i<MOVES.length;i++) if(t>=MOVES[i][0]) k=i;
+  const m=MOVES[k], pv=MOVES[Math.max(0,k-1)], p=k===0?1:eio(clamp((t-m[0])/0.8));
+  let x=pv[1]+(m[1]-pv[1])*p, b=pv[2]+(m[2]-pv[2])*p, s=pv[3]+(m[3]-pv[3])*p;
+  let hop = k===0?0:Math.sin(Math.PI*clamp((t-m[0])/0.8))*140;
+  if(t<0.8) b += (1-back(clamp(t/0.8)))*500;
+  return {x,b:b-hop,s};
+}
+let lastPos={x:0,b:0,s:1};
+function drawAllan(t){
+  const P=allanPos(t), po=allanPose(t); lastPos=P;
+  const bob=Math.sin(t*3.2)*5 + po.jump;
+  A.root.style.transform=`translate(${P.x}px,${P.b-440}px) scale(${P.s})`;
+  A.body.setAttribute("transform",`translate(0 ${-bob})`);
+  A.armL.setAttribute("transform",`rotate(${po.L} 95 272)`);
+  A.armR.setAttribute("transform",`rotate(${po.R} 205 272)`);
+  A.head.setAttribute("transform",`rotate(${Math.sin(t*1.7)*3} 150 250)`);
+  const ph=t%3.6, bl=(ph<0.13||(ph>0.3&&ph<0.4&&Math.floor(t/3.6)%3===0))?0.1:1;
+  A.eyes.setAttribute("transform",`translate(${po.ptr*-5} 150) scale(1 ${bl}) translate(0 -150)`);
+  A.ptr.style.opacity=A.ptip.style.opacity=po.ptr;
+  A.thumb.style.opacity=po.thumb; A.hand.style.opacity=1-po.thumb;
+  const ln=LINES.find(l=>t>=l[0]&&t<l[1]); let talking=false;
+  if(ln){const plain=ln[2].replace(/<[^>]+>/g,""); talking=(t-ln[0])*16<[...plain].length;}
+  const open=talking&&Math.floor(t*9)%2===0;
+  A.smile.style.opacity=open?0:1; A.mo.style.opacity=open?1:0;
+}
+/* typewriter that keeps HTML tags and reserves final size */
+function typed(html,n){
+  let out="",vis=0,i=0,rest="";
+  const toks=html.match(/<[^>]+>|[\uD800-\uDBFF][\uDC00-\uDFFF]|[\s\S]/g);
+  for(const tk of toks){ if(tk.startsWith("<")){ out+=tk; continue; } if(vis<n){out+=tk==="\n"?"<br>":tk;vis++;} else { out+=`<span class="rest">${tk==="\n"?"<br>":tk}</span>`; } }
+  return out;
+}
+const B=$("#bubble"), BT=$("#btxt"), TAIL=$("#tail"); let bKey=null;
+function drawBubble(t){
+  const ln=LINES.find(l=>t>=l[0]&&t<l[1]);
+  if(!ln){B.style.visibility="hidden";return;}
+  const n=Math.floor((t-ln[0])*16), key=ln[0]+":"+n;
+  if(key!==bKey){BT.innerHTML=typed(ln[2],n); bKey=key;}
+  B.style.visibility="visible";
+  const w=B.offsetWidth,h=B.offsetHeight,P=lastPos;
+  const headX=P.x+150, headTop=P.b-(440-45)*P.s;
+  let left = headX<900 ? headX-200 : Math.min(1890,headX+200)-w;
+  left=Math.max(20,left); const top=headTop-40-56-h+10;
+  const tx=Math.max(40,Math.min(w-100,headX-left-30));
+  TAIL.style.left=tx+"px";
+  const pin=clamp((t-ln[0])/0.35), pout=clamp((ln[1]-t)/0.2);
+  const sc=(pin<1?0.2+0.8*back(pin):1)*(pout<1?0.6+0.4*pout:1);
+  B.style.transformOrigin=`${tx+30}px ${h+50}px`;
+  B.style.transform=`translate(${left}px,${top}px) scale(${sc})`;
+  B.style.opacity=Math.min(clamp(pin*3),pout);
+}
+
+/* ---------- background & confetti ---------- */
+const bg=$("#bg").getContext("2d"), fx=$("#fx").getContext("2d");
+let seed=11; const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;
+const doodles=Array.from({length:22},()=>({x:rnd()*1920,y:rnd()*1080,k:Math.floor(rnd()*4),r:14+rnd()*22,sp:0.3+rnd()*0.7,ph:rnd()*6.3,c:["#ffd23f","#ff5d8f","#3a86ff","#20c997","#8f5cff","#ff9f1c"][Math.floor(rnd()*6)]}));
+function sectionColor(t){ // crossfade 0.8s at section switches
+  const cuts=[[0,[255,240,184]],[19,[205,239,255]],[61,[255,224,234]],[134,[229,221,255]],[170,[255,240,184]]];
+  let i=0; for(let j=0;j<cuts.length;j++) if(t>=cuts[j][0]) i=j;
+  const c=cuts[i][1], p=i?cuts[i-1][1]:c, k=eo(clamp((t-cuts[i][0])/0.8));
+  return p.map((v,j)=>Math.round(v+(c[j]-v)*k));
+}
+function star(ctx,x,y,r,rot){ctx.beginPath();for(let i=0;i<10;i++){const a=rot+i*Math.PI/5, rr=i%2?r*0.45:r;ctx.lineTo(x+Math.cos(a)*rr,y+Math.sin(a)*rr);}ctx.closePath();}
+function drawBg(t){
+  const c=sectionColor(t); bg.fillStyle=`rgb(${c})`; bg.fillRect(0,0,1920,1080);
+  bg.fillStyle="rgba(29,27,51,0.07)";
+  const off=(t*10)%36;
+  for(let y=-36+off;y<1080;y+=36) for(let x=((y/36|0)%2)*18-36+off;x<1920;x+=36){bg.beginPath();bg.arc(x,y,3,0,6.283);bg.fill();}
+  bg.lineWidth=4; bg.strokeStyle="#1d1b33";
+  doodles.forEach(d=>{
+    const x=(d.x+t*14*d.sp)%2000-40, y=d.y+Math.sin(t*d.sp+d.ph)*30, rot=t*d.sp*0.8+d.ph;
+    bg.globalAlpha=0.45; bg.fillStyle=d.c;
+    if(d.k===0){star(bg,x,y,d.r,rot);bg.fill();bg.stroke();}
+    else if(d.k===1){bg.beginPath();bg.arc(x,y,d.r*0.6,0,6.283);bg.fill();bg.stroke();}
+    else if(d.k===2){bg.save();bg.translate(x,y);bg.rotate(rot);bg.fillRect(-d.r*0.15,-d.r*0.6,d.r*0.3,d.r*1.2);bg.fillRect(-d.r*0.6,-d.r*0.15,d.r*1.2,d.r*0.3);bg.restore();}
+    else {bg.beginPath();for(let i=0;i<=24;i++){bg.lineTo(x-d.r*1.2+i*d.r*0.1,y+Math.sin(i*0.8+t*3)*d.r*0.25);}bg.stroke();}
+    bg.globalAlpha=1;
   });
+}
+const conf=Array.from({length:160},()=>({x:200+rnd()*1500,vx:(rnd()-0.5)*500,vy:-500-rnd()*700,r:rnd()*6.3,vr:(rnd()-0.5)*10,c:["#ffd23f","#ff5d8f","#3a86ff","#20c997","#8f5cff","#ff9f1c"][Math.floor(rnd()*6)],w:10+rnd()*12,d:rnd()*0.8}));
+function drawFx(t){
+  fx.clearRect(0,0,1920,1080);
+  const T0=173.2; if(t<T0) return;
+  conf.forEach(c=>{const s=t-T0-c.d; if(s<0) return; const x=c.x+c.vx*s, y=1100+c.vy*s+520*s*s; if(y>1150&&s>1) return;
+    fx.save();fx.translate(x,y);fx.rotate(c.r+c.vr*s);fx.fillStyle=c.c;fx.strokeStyle="#1d1b33";fx.lineWidth=2;fx.fillRect(-c.w/2,-c.w/4,c.w,c.w/2);fx.strokeRect(-c.w/2,-c.w/4,c.w,c.w/2);fx.restore();});
 }
 
 function render(t){
-  drawBg(t);
-  let cur = null;
+  drawBg(t); let cur=null;
   scenes.forEach(sc=>{
-    if (t < sc.s || t >= sc.e){ sc.el.style.visibility="hidden"; return; }
-    cur = sc;
-    const lt = t - sc.s, fi = clamp(lt/0.5), fo = clamp((sc.e - t)/0.5);
-    sc.el.style.visibility="visible";
-    sc.el.style.opacity = Math.min(fi,fo);
-    sc.el.style.transform = fo<1 ? `scale(${1+0.03*(1-fo)})` : "";
-    sc.el.style.filter = fo<1 ? `blur(${(1-fo)*6}px)` : "";
-    sc.items.forEach(it=>applyItem(it, lt));
+    if(t<sc.s||t>=sc.e){sc.el.style.visibility="hidden";return;}
+    cur=sc; const lt=t-sc.s, fi=clamp(lt/0.4), fo=clamp((sc.e-t)/0.4);
+    sc.el.style.visibility="visible"; sc.el.style.opacity=Math.min(fi,fo);
+    sc.el.style.transform=fo<1?`translateX(${-(1-fo)*120}px) rotate(${-(1-fo)*1.5}deg)`:(fi<1?`translateX(${(1-eo(fi))*120}px)`:"");
+    sc.items.forEach(it=>applyItem(it,lt));
   });
-  const title = t < 9;
-  $("#chrome").style.opacity = title ? clamp((t-8.5)/0.5) : (t>171 ? clamp((171.5-t)/0.5) : 1);
-  $("#sec").textContent = cur ? cur.sec : "";
-  $("#progf").style.width = (t/DUR*100)+"%";
-  const s = Math.floor(t); $("#clock").textContent = `${Math.floor(s/60)}:${String(s%60).padStart(2,"0")} / 3:00`;
+  drawAllan(t); drawBubble(t); drawFx(t);
+  $("#chrome").style.opacity=t<9.5?0:clamp((t-9.5)/0.5);
+  $("#sec").textContent=cur?cur.sec:"";
+  $("#progf").style.width=(t/DUR*100)+"%";
+  const s=Math.floor(t); $("#clock").textContent=`${Math.floor(s/60)}:${String(s%60).padStart(2,"0")} / 3:00`;
 }
-window.render = render; window.DUR = DUR;
+window.render=render; window.DUR=DUR;
+window.EVENTS={bubbles:LINES.map(l=>l[0]),scenes:scenes.map(s=>s.s).filter(x=>x>0)};
 
 /* ---------- live playback ---------- */
-const RENDER = new URLSearchParams(location.search).has("render");
-if (RENDER) { document.body.classList.add("render"); render(0); }
-else {
-  const stage = $("#stage");
-  const fit = ()=>{ const k=Math.min(innerWidth/1920,innerHeight/1080); stage.style.transform=`translate(${(innerWidth-1920*k)/2}px,${(innerHeight-1080*k)/2}px) scale(${k})`; };
-  addEventListener("resize",fit); fit();
-  let t0 = performance.now(), paused = false, pt = 0;
-  const now = ()=> paused ? pt : (performance.now()-t0)/1000;
-  const toggle = ()=>{ if(paused){ t0=performance.now()-pt*1000; paused=false; $("#pp").textContent="⏸ 暫停"; } else { pt=now(); paused=true; $("#pp").textContent="▶ 播放"; } };
-  $("#pp").onclick = toggle;
-  $("#rs").onclick = ()=>{ t0=performance.now(); pt=0; if(paused) toggle(); };
-  addEventListener("keydown",e=>{ if(e.code==="Space"){ e.preventDefault(); toggle(); } });
-  $("#prog").style.pointerEvents="auto"; $("#prog").style.height="14px"; $("#prog").style.cursor="pointer";
-  $("#prog").onclick = e=>{ const r=$("#prog").getBoundingClientRect(); const nt=(e.clientX-r.left)/r.width*DUR; t0=performance.now()-nt*1000; pt=nt; };
-  document.fonts.ready.then(()=>{ t0=performance.now(); (function loop(){ let t=now(); if(t>DUR){t=DUR;} render(t); requestAnimationFrame(loop); })(); });
+const RENDER=new URLSearchParams(location.search).has("render");
+if(RENDER){document.body.classList.add("render");render(0);}
+else{
+  const stage=$("#stage");
+  const fit=()=>{const k=Math.min(innerWidth/1920,innerHeight/1080);stage.style.transform=`translate(${(innerWidth-1920*k)/2}px,${(innerHeight-1080*k)/2}px) scale(${k})`;};
+  addEventListener("resize",fit);fit();
+  let t0=performance.now(),paused=false,pt=0;
+  const now=()=>paused?pt:(performance.now()-t0)/1000;
+  const toggle=()=>{if(paused){t0=performance.now()-pt*1000;paused=false;$("#pp").textContent="⏸ 暫停";}else{pt=now();paused=true;$("#pp").textContent="▶ 播放";}};
+  $("#pp").onclick=toggle; $("#rs").onclick=()=>{t0=performance.now();pt=0;if(paused)toggle();};
+  addEventListener("keydown",e=>{if(e.code==="Space"){e.preventDefault();toggle();}});
+  const pr=$("#prog"); pr.style.pointerEvents="auto"; pr.style.cursor="pointer";
+  pr.onclick=e=>{const r=pr.getBoundingClientRect();const nt=(e.clientX-r.left)/r.width*DUR;t0=performance.now()-nt*1000;pt=nt;};
+  document.fonts.ready.then(()=>{t0=performance.now();(function loop(){render(Math.min(now(),DUR));requestAnimationFrame(loop);})();});
 }
 </script>
 </body>
