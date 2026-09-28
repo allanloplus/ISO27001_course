@@ -20,7 +20,6 @@ body{font-family:"Noto Sans TC","Inter","WenQuanYi Zen Hei",sans-serif;color:var
   background:radial-gradient(1400px 900px at 70% 20%,#11284a 0%,var(--bg) 60%)}
 #bg{position:absolute;inset:0}
 .scene{position:absolute;inset:0;visibility:hidden}
-.a{will-change:transform,opacity}
 .abs{position:absolute!important}
 .center{display:flex;flex-direction:column;align-items:center;justify-content:center}
 .h1{font-size:64px;font-weight:900;letter-spacing:2px}
@@ -61,12 +60,22 @@ ul.dots li::before{content:"";position:absolute;left:4px;top:17px;width:12px;hei
 .strip div{flex:0 0 auto;padding:6px 20px;border-radius:12px;font-size:22px;font-weight:700;color:#5f7697;border:2px solid #1d3354;background:rgba(10,22,40,.6)}
 .strip div.cur{color:#fff;background:var(--sc);border-color:var(--sc);box-shadow:0 0 24px var(--sc)}
 
-#ui{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);color:#9fb3cf;font:14px "Noto Sans TC",sans-serif;opacity:.8;z-index:10}
+#ui{position:absolute;left:50%;bottom:18px;transform:translateX(-50%);color:#9fb3cf;font:14px "Noto Sans TC",sans-serif;opacity:.8;z-index:10}
 #ui button{background:#16304f;color:#fff;border:1px solid #2b4a74;border-radius:8px;padding:6px 14px;margin:0 4px;cursor:pointer;font:inherit}
 body.render #ui{display:none}
+
+/* responsive player shell: stage is clipped inside a fixed box so phones keep a device-width layout */
+#app{position:fixed;left:0;top:0;width:100%;height:100%;overflow:hidden;transform-origin:0 0;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+#ui{transition:opacity .3s}
+#ui.hide{opacity:0;pointer-events:none}
+@media (pointer:coarse){ #ui button,#ui a{font-size:15px!important;padding:9px 14px!important} #ui{bottom:10px!important;white-space:nowrap} }
+#tip{position:absolute;left:50%;top:14px;transform:translateX(-50%);z-index:12;background:rgba(0,0,0,.72);color:#fff;border-radius:999px;padding:8px 16px;font:14px "Noto Sans TC",sans-serif;display:none;white-space:nowrap}
+@media (pointer:coarse){#ui .kb{display:none}}
 </style>
 </head>
 <body>
+<div id="app">
+<div id="tip">📱 把手機橫放，畫面更大更清楚</div>
 <div id="stage">
 <canvas id="bg" width="1920" height="1080"></canvas>
 
@@ -264,7 +273,8 @@ body.render #ui{display:none}
   <div id="prog"><div id="progf"></div></div>
 </div>
 </div>
-<div id="ui"><button id="pp">⏸ 暫停</button><button id="rs">⟲ 重播</button><a href="../video/ISO27001_course_intro_classic.mp4" target="_blank" rel="noopener"><button>🎬 影片 MP4</button></a>　空白鍵暫停／點擊進度條跳轉</div>
+<div id="ui"><button id="pp">⏸ 暫停</button><button id="rs">⟲ 重播</button><a href="../video/ISO27001_course_intro_classic.mp4" target="_blank" rel="noopener"><button>🎬 影片 MP4</button></a>　<span class="kb">空白鍵暫停／點擊進度條跳轉</span></div>
+</div><!-- /app -->
 
 <script>
 const DUR = 180;
@@ -588,18 +598,32 @@ window.render = render; window.DUR = DUR;
 const RENDER = new URLSearchParams(location.search).has("render");
 if (RENDER) { document.body.classList.add("render"); render(0); }
 else {
-  const stage = $("#stage");
-  const fit = ()=>{ const k=Math.min(innerWidth/1920,innerHeight/1080); stage.style.transform=`translate(${(innerWidth-1920*k)/2}px,${(innerHeight-1080*k)/2}px) scale(${k})`; };
-  addEventListener("resize",fit); fit();
+
+  /* ---- responsive shell: fit 1920x1080 into the screen; upright phones get a landscape view ---- */
+  const app=$("#app"), stage=$("#stage"); let ROT=false;
+  const fit=()=>{
+    const W=document.documentElement.clientWidth||innerWidth, H=document.documentElement.clientHeight||innerHeight;
+    ROT = H > W*1.15 && matchMedia("(pointer:coarse)").matches;
+    const aw = ROT?H:W, ah = ROT?W:H;
+    app.style.width=aw+"px"; app.style.height=ah+"px";
+    app.style.transform = ROT ? `translate(${W}px,0) rotate(90deg)` : "";
+    const k=Math.min(aw/1920,ah/1080);
+    stage.style.transform=`translate(${(aw-1920*k)/2}px,${(ah-1080*k)/2}px) scale(${k})`;
+    const tip=$("#tip"); if(tip){ tip.style.display=ROT?"block":"none"; clearTimeout(fit.tt); fit.tt=setTimeout(()=>tip.style.display="none",4000); }
+  };
+  addEventListener("resize",fit); addEventListener("orientationchange",()=>setTimeout(fit,300)); fit();
+  const progFrac=(e,el)=>{const r=el.getBoundingClientRect(); return ROT?(e.clientY-r.top)/r.height:(e.clientX-r.left)/r.width;};
+  let uiT=null; const showUI=()=>{ $("#ui").classList.remove("hide"); clearTimeout(uiT); if(matchMedia("(pointer:coarse)").matches) uiT=setTimeout(()=>$("#ui").classList.add("hide"),3500); };
   let t0 = performance.now(), paused = false, pt = 0;
   const now = ()=> paused ? pt : (performance.now()-t0)/1000;
-  const toggle = ()=>{ if(paused){ t0=performance.now()-pt*1000; paused=false; $("#pp").textContent="⏸ 暫停"; } else { pt=now(); paused=true; $("#pp").textContent="▶ 播放"; } };
+  const toggle = ()=>{ if(paused){ t0=performance.now()-pt*1000; paused=false; $("#pp").textContent="⏸ 暫停"; } else { pt=now(); paused=true; $("#pp").textContent="▶ 播放"; } showUI(); };
+  stage.addEventListener("click",e=>{ if(e.target.closest("#prog,#course a")) return; toggle(); });
   $("#pp").onclick = toggle;
   $("#rs").onclick = ()=>{ t0=performance.now(); pt=0; if(paused) toggle(); };
   addEventListener("keydown",e=>{ if(e.code==="Space"){ e.preventDefault(); toggle(); } });
   $("#prog").style.pointerEvents="auto"; $("#prog").style.height="14px"; $("#prog").style.cursor="pointer";
-  $("#prog").onclick = e=>{ const r=$("#prog").getBoundingClientRect(); const nt=(e.clientX-r.left)/r.width*DUR; t0=performance.now()-nt*1000; pt=nt; };
-  document.fonts.ready.then(()=>{ t0=performance.now(); (function loop(){ let t=now(); if(t>DUR){t=DUR;} render(t); requestAnimationFrame(loop); })(); });
+  $("#prog").onclick = e=>{ const nt=Math.max(0,Math.min(1,progFrac(e,$("#prog"))))*DUR; t0=performance.now()-nt*1000; pt=nt; showUI(); };
+  document.fonts.ready.then(()=>{ t0=performance.now(); showUI(); (function loop(){ let t=now(); if(t>DUR){t=DUR;} render(t); requestAnimationFrame(loop); })(); });
 }
 </script>
 </body>

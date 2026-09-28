@@ -20,7 +20,6 @@ body{font-family:"Noto Sans TC","WenQuanYi Zen Hei",sans-serif;color:var(--ink)}
 #stage{position:absolute;left:0;top:0;width:1920px;height:1080px;transform-origin:0 0;overflow:hidden;background:#cdefff}
 #bg,#fx{position:absolute;inset:0}
 .scene{position:absolute;inset:0;visibility:hidden}
-.a{will-change:transform,opacity}
 .abs{position:absolute!important}
 .fd{font-family:Fredoka,"Noto Sans TC",sans-serif}
 .sticker{background:var(--paper);border:5px solid var(--ink);border-radius:26px;box-shadow:8px 8px 0 var(--ink);padding:22px 26px;position:relative}
@@ -60,17 +59,26 @@ body{font-family:"Noto Sans TC","WenQuanYi Zen Hei",sans-serif;color:var(--ink)}
 .strip div{flex:1;text-align:center;padding:6px 0;border:4px solid var(--ink);border-radius:16px;font-size:22px;font-weight:900;background:#fff;opacity:.55}
 .strip div.cur{opacity:1;background:var(--sc);color:#fff;box-shadow:4px 4px 0 var(--ink);transform:translateY(-4px)}
 
-#ui{position:fixed;left:50%;bottom:14px;transform:translateX(-50%);z-index:10;font:14px "Noto Sans TC",sans-serif}
+#ui{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);z-index:10;font:14px "Noto Sans TC",sans-serif}
 #ui button,#ui a{background:#fff;color:#1d1b33;border:3px solid #1d1b33;border-radius:999px;padding:5px 14px;margin:0 3px;cursor:pointer;font:700 14px "Noto Sans TC",sans-serif;text-decoration:none;display:inline-block}
 body.render #ui{display:none}
-#gate{position:fixed;inset:0;z-index:20;display:none;align-items:center;justify-content:center;flex-direction:column;gap:18px;background:rgba(29,27,51,.72);font-family:"Noto Sans TC",sans-serif;color:#fff;text-align:center;padding:16px}
+#gate{position:absolute;inset:0;z-index:20;display:none;align-items:center;justify-content:center;flex-direction:column;gap:18px;background:rgba(29,27,51,.72);font-family:"Noto Sans TC",sans-serif;color:#fff;text-align:center;padding:16px}
 #gate button{font:900 34px "Noto Sans TC",sans-serif;padding:18px 44px;border:5px solid #1d1b33;border-radius:999px;background:#ffd23f;color:#1d1b33;box-shadow:6px 6px 0 #1d1b33;cursor:pointer}
 #gate p{font-size:16px;max-width:560px;line-height:1.6;opacity:.9}
 #vname{margin-left:8px;color:#fff;background:#1d1b33;border-radius:999px;padding:4px 12px;font:12px "Noto Sans TC",sans-serif}
 @media (prefers-reduced-motion: reduce){ #ui{opacity:1} }
+
+/* responsive player shell: stage is clipped inside a fixed box so phones keep a device-width layout */
+#app{position:fixed;left:0;top:0;width:100%;height:100%;overflow:hidden;transform-origin:0 0;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+#ui{transition:opacity .3s}
+#ui.hide{opacity:0;pointer-events:none}
+@media (pointer:coarse){ #ui button,#ui a{font-size:15px!important;padding:9px 14px!important} #ui{bottom:10px!important;white-space:nowrap} }
+#tip{position:absolute;left:50%;top:14px;transform:translateX(-50%);z-index:12;background:rgba(0,0,0,.72);color:#fff;border-radius:999px;padding:8px 16px;font:14px "Noto Sans TC",sans-serif;display:none;white-space:nowrap}
 </style>
 </head>
 <body>
+<div id="app">
+<div id="tip">📱 把手機橫放，畫面更大更清楚</div>
 <div id="stage">
 <canvas id="bg" width="1920" height="1080"></canvas>
 <div id="scenes">
@@ -272,6 +280,7 @@ body.render #ui{display:none}
 </div>
 <div id="gate"><button id="go">🔊 開始播放（Allan 老師開口說話）</button><p>請開啟喇叭或耳機 🎧</p></div>
 <div id="ui"><button id="pp">⏸ 暫停</button><button id="rs">⟲ 重播</button><a href="index.html?voice">🔊 有聲版</a><a href="../video/ISO27001_course_intro.mp4" target="_blank" rel="noopener">🎬 影片 MP4</a><a href="classic.html">經典版</a></div>
+</div><!-- /app -->
 
 <script src="voice/voice.js"></script>
 <script>
@@ -584,12 +593,12 @@ function sectionColor(t){ // crossfade 0.8s at section switches
   const c=cuts[i][1], p=i?cuts[i-1][1]:c, k=eo(clamp((t-cuts[i][0])/0.8));
   return p.map((v,j)=>Math.round(v+(c[j]-v)*k));
 }
+const DOTS=document.createElement("canvas"); DOTS.width=1920+72; DOTS.height=1080+72;
+{const d=DOTS.getContext("2d"); d.fillStyle="rgba(29,27,51,0.07)"; for(let y=0;y<DOTS.height;y+=36) for(let x=((y/36)%2)*18;x<DOTS.width;x+=36){d.beginPath();d.arc(x,y,3,0,6.283);d.fill();}}
 function star(ctx,x,y,r,rot){ctx.beginPath();for(let i=0;i<10;i++){const a=rot+i*Math.PI/5, rr=i%2?r*0.45:r;ctx.lineTo(x+Math.cos(a)*rr,y+Math.sin(a)*rr);}ctx.closePath();}
 function drawBg(t){
   const c=sectionColor(t); bg.fillStyle=`rgb(${c})`; bg.fillRect(0,0,1920,1080);
-  bg.fillStyle="rgba(29,27,51,0.07)";
-  const off=(t*10)%36;
-  for(let y=-36+off;y<1080;y+=36) for(let x=((y/36|0)%2)*18-36+off;x<1920;x+=36){bg.beginPath();bg.arc(x,y,3,0,6.283);bg.fill();}
+  const off=(t*10)%36; bg.drawImage(DOTS,-36+off,-36+off);
   bg.lineWidth=4; bg.strokeStyle="#1d1b33";
   doodles.forEach(d=>{
     const x=(d.x+t*14*d.sp)%2000-40, y=d.y+Math.sin(t*d.sp+d.ph)*30, rot=t*d.sp*0.8+d.ph;
@@ -664,7 +673,11 @@ function speakAt(t){
   if (i < 0 || t - LINES[i][0] > 0.6) return;   // don't start a line mid-way after seeking
   blip();
   const c = window.VOICE_CLIPS && window.VOICE_CLIPS[i];
-  if (c) { clipAudio = new Audio("voice/" + c.file); clipAudio.play().catch(()=>{}); return; }
+  if (c) {
+    if (actx && clipBuf[i]) { const src = actx.createBufferSource(); src.buffer = clipBuf[i]; src.connect(actx.destination); src.start(); clipAudio = {pause:()=>{try{src.stop();}catch(e){}}}; }
+    else { clipAudio = new Audio("voice/" + c.file); clipAudio.play().catch(()=>{}); }
+    return;
+  }
   const u = new SpeechSynthesisUtterance(sayText(LINES[i]));
   const v = voicePick || pickVoice();
   if (v) { u.voice = v; u.lang = v.lang; } else u.lang = "zh-TW";
@@ -672,7 +685,12 @@ function speakAt(t){
   u.rate = 1.12; u.pitch = male ? 1.12 : 0.8;   // lively; pull an unknown/female voice lower
   speechSynthesis.speak(u);
 }
-let actx = null;
+let actx = null; const clipBuf = [];
+function unlockAudio(){   // must run inside the tap: iOS / LINE only allow sound started from a user gesture
+  try{ actx = actx || new (window.AudioContext||window.webkitAudioContext)(); actx.resume();
+    const b = actx.createBuffer(1,1,22050), s = actx.createBufferSource(); s.buffer=b; s.connect(actx.destination); s.start(); }catch(e){}
+  (window.VOICE_CLIPS||[]).forEach((c,i)=>{ fetch("voice/"+c.file).then(r=>r.arrayBuffer()).then(a=>new Promise((ok,no)=>actx.decodeAudioData(a,ok,no))).then(b=>clipBuf[i]=b).catch(()=>{}); });
+}
 function blip(){ try{ actx = actx || new (window.AudioContext||window.webkitAudioContext)(); const o=actx.createOscillator(), g=actx.createGain();
   o.frequency.setValueAtTime(500,actx.currentTime); o.frequency.exponentialRampToValueAtTime(1900,actx.currentTime+.12);
   g.gain.setValueAtTime(.12,actx.currentTime); g.gain.exponentialRampToValueAtTime(.001,actx.currentTime+.14);
@@ -683,22 +701,37 @@ if (VOICE && window.speechSynthesis) { speechSynthesis.onvoiceschanged = pickVoi
 const RENDER=new URLSearchParams(location.search).has("render");
 if(RENDER){document.body.classList.add("render");render(0);}
 else{
-  const stage=$("#stage");
-  const fit=()=>{const k=Math.min(innerWidth/1920,innerHeight/1080);stage.style.transform=`translate(${(innerWidth-1920*k)/2}px,${(innerHeight-1080*k)/2}px) scale(${k})`;};
-  addEventListener("resize",fit);fit();
+
+  /* ---- responsive shell: fit 1920x1080 into the screen; upright phones get a landscape view ---- */
+  const app=$("#app"), stage=$("#stage"); let ROT=false;
+  const fit=()=>{
+    const W=document.documentElement.clientWidth||innerWidth, H=document.documentElement.clientHeight||innerHeight;
+    ROT = H > W*1.15 && matchMedia("(pointer:coarse)").matches;
+    const aw = ROT?H:W, ah = ROT?W:H;
+    app.style.width=aw+"px"; app.style.height=ah+"px";
+    app.style.transform = ROT ? `translate(${W}px,0) rotate(90deg)` : "";
+    const k=Math.min(aw/1920,ah/1080);
+    stage.style.transform=`translate(${(aw-1920*k)/2}px,${(ah-1080*k)/2}px) scale(${k})`;
+    const tip=$("#tip"); if(tip){ tip.style.display=ROT?"block":"none"; clearTimeout(fit.tt); fit.tt=setTimeout(()=>tip.style.display="none",4000); }
+  };
+  addEventListener("resize",fit); addEventListener("orientationchange",()=>setTimeout(fit,300)); fit();
+  const progFrac=(e,el)=>{const r=el.getBoundingClientRect(); return ROT?(e.clientY-r.top)/r.height:(e.clientX-r.left)/r.width;};
+  let uiT=null; const showUI=()=>{ $("#ui").classList.remove("hide"); clearTimeout(uiT); if(matchMedia("(pointer:coarse)").matches) uiT=setTimeout(()=>$("#ui").classList.add("hide"),3500); };
   let t0=performance.now(),paused=false,pt=0;
   const now=()=>paused?pt:(performance.now()-t0)/1000;
   const hush=()=>{ if(VOICE){ if(window.speechSynthesis) speechSynthesis.cancel(); if(clipAudio){clipAudio.pause();clipAudio=null;} spokenIdx=-1; } };
-  const toggle=()=>{if(paused){t0=performance.now()-pt*1000;paused=false;$("#pp").textContent="⏸ 暫停";}else{pt=now();paused=true;hush();$("#pp").textContent="▶ 播放";}};
+  const toggle=()=>{if(paused){t0=performance.now()-pt*1000;paused=false;$("#pp").textContent="⏸ 暫停";}else{pt=now();paused=true;hush();$("#pp").textContent="▶ 播放";} showUI();};
+  stage.addEventListener("click",e=>{ if(e.target.closest("#prog,#course a")) return; toggle(); });
+  document.addEventListener("visibilitychange",()=>{ if(document.hidden&&!paused) toggle(); });
   $("#pp").onclick=toggle; $("#rs").onclick=()=>{hush();t0=performance.now();pt=0;if(paused)toggle();};
   addEventListener("keydown",e=>{if(e.code==="Space"){e.preventDefault();toggle();}});
   const pr=$("#prog"); pr.style.pointerEvents="auto"; pr.style.cursor="pointer";
-  pr.onclick=e=>{const r=pr.getBoundingClientRect();const nt=(e.clientX-r.left)/r.width*DUR;hush();t0=performance.now()-nt*1000;pt=nt;};
-  const start=()=>{t0=performance.now();(function loop(){const t=Math.min(now(),DUR);render(t);if(!paused)speakAt(t);requestAnimationFrame(loop);})();};
+  pr.onclick=e=>{const nt=Math.max(0,Math.min(1,progFrac(e,pr)))*DUR;hush();t0=performance.now()-nt*1000;pt=nt;showUI();};
+  const start=()=>{t0=performance.now();showUI();(function loop(){const t=Math.min(now(),DUR);render(t);if(!paused)speakAt(t);requestAnimationFrame(loop);})();};
   if(VOICE){
     $("#ui").insertAdjacentHTML("beforeend",'<span id="vname"></span>'); pickVoice();
     render(0); $("#gate").style.display="flex";
-    $("#go").onclick=()=>{ $("#gate").style.display="none"; pickVoice(); try{speechSynthesis.speak(new SpeechSynthesisUtterance(""));}catch(e){} document.fonts.ready.then(start); };
+    $("#go").onclick=()=>{ $("#gate").style.display="none"; pickVoice(); unlockAudio(); try{speechSynthesis.speak(new SpeechSynthesisUtterance(""));}catch(e){} document.fonts.ready.then(start); };
   } else document.fonts.ready.then(start);
 }
 </script>
