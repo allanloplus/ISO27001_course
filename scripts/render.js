@@ -1,11 +1,11 @@
 // Render animation/index.html to MP4 frame-by-frame (deterministic).
-// Usage: node scripts/render.js [out.mp4] [fps]      Stills: node scripts/render.js --stills 5,20,40
+// Usage: [PAGE=classic.html] node scripts/render.js [out.mp4] [fps] [from] [to]      Stills: node scripts/render.js --stills 5,20,40
 const { chromium } = require('playwright');
 const { spawn } = require('child_process');
 const path = require('path');
 
 const FFMPEG = process.env.FFMPEG || 'ffmpeg';
-const page_url = 'file://' + path.resolve(__dirname, '../animation/index.html') + '?render=1';
+const page_url = 'file://' + path.resolve(__dirname, '../animation/' + (process.env.PAGE || 'index.html')) + '?render=1';
 
 (async () => {
   const args = process.argv.slice(2);

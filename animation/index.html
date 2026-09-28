@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ISO 27001 三分鐘速懂</title>
+<title>3分鐘快速了解ISO27001</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Huninn&family=Fredoka:wght@500;600;700&family=Noto+Sans+TC:wght@500;700;900&display=block" rel="stylesheet">
@@ -43,6 +43,13 @@ body{font-family:"Noto Sans TC","WenQuanYi Zen Hei",sans-serif;color:var(--ink)}
 #bubble b{color:var(--pk)}
 #tail{position:absolute;top:100%;width:60px;height:56px;margin-top:-5px;overflow:visible}
 
+/* course header (always on top) */
+#course{position:absolute;left:0;right:0;top:0;height:58px;z-index:8;display:flex;align-items:center;justify-content:space-between;padding:0 28px;
+  background:#fff;border-bottom:5px solid var(--ink);font-size:26px;font-weight:900}
+#course .k{display:inline-block;padding:2px 12px;margin-right:10px;border:3px solid var(--ink);border-radius:999px;background:var(--y);font-size:20px;vertical-align:3px}
+#course a{color:var(--ink);text-decoration:none}
+#course a span{color:var(--bl)}
+#scenes{position:absolute;inset:0;transform:translateY(58px) scale(.94);transform-origin:960px 0}
 /* chrome */
 #chrome{position:absolute;inset:0;pointer-events:none;z-index:7}
 #sec{position:absolute;left:36px;bottom:22px;padding:4px 18px;border:4px solid var(--ink);border-radius:999px;background:#fff;font-weight:900;font-size:22px;box-shadow:3px 3px 0 var(--ink)}
@@ -56,12 +63,17 @@ body{font-family:"Noto Sans TC","WenQuanYi Zen Hei",sans-serif;color:var(--ink)}
 #ui{position:fixed;left:50%;bottom:14px;transform:translateX(-50%);z-index:10;font:14px "Noto Sans TC",sans-serif}
 #ui button,#ui a{background:#fff;color:#1d1b33;border:3px solid #1d1b33;border-radius:999px;padding:5px 14px;margin:0 3px;cursor:pointer;font:700 14px "Noto Sans TC",sans-serif;text-decoration:none;display:inline-block}
 body.render #ui{display:none}
+#gate{position:fixed;inset:0;z-index:20;display:none;align-items:center;justify-content:center;flex-direction:column;gap:18px;background:rgba(29,27,51,.72);font-family:"Noto Sans TC",sans-serif;color:#fff;text-align:center;padding:16px}
+#gate button{font:900 34px "Noto Sans TC",sans-serif;padding:18px 44px;border:5px solid #1d1b33;border-radius:999px;background:#ffd23f;color:#1d1b33;box-shadow:6px 6px 0 #1d1b33;cursor:pointer}
+#gate p{font-size:16px;max-width:560px;line-height:1.6;opacity:.9}
+#vname{margin-left:8px;color:#fff;background:#1d1b33;border-radius:999px;padding:4px 12px;font:12px "Noto Sans TC",sans-serif}
 @media (prefers-reduced-motion: reduce){ #ui{opacity:1} }
 </style>
 </head>
 <body>
 <div id="stage">
 <canvas id="bg" width="1920" height="1080"></canvas>
+<div id="scenes">
 
 <!-- ============ S1 INTRO 0-10 ============ -->
 <section class="scene" data-start="0" data-end="10" data-sec="開場">
@@ -204,6 +216,8 @@ body.render #ui{display:none}
   </div>
 </section>
 
+</div><!-- /scenes -->
+
 <!-- character -->
 <svg id="allan" viewBox="0 0 300 440" overflow="visible">
   <ellipse cx="150" cy="430" rx="88" ry="12" fill="rgba(29,27,51,.18)"/>
@@ -253,9 +267,11 @@ body.render #ui{display:none}
 <div id="bubble"><span id="btxt"></span><svg id="tail" viewBox="0 0 60 56"><path d="M4 0 L30 50 L56 0" fill="#fff" stroke="#1d1b33" stroke-width="5" stroke-linejoin="round"/></svg></div>
 
 <canvas id="fx" width="1920" height="1080" style="z-index:6;pointer-events:none"></canvas>
+<div id="course"><div><span class="k">課程名稱</span>3分鐘快速了解ISO27001</div><a href="http://www.123hi.org" target="_blank" rel="noopener"><span class="k">講師</span>Allan Lo (<span>http://www.123hi.org</span>)</a></div>
 <div id="chrome"><div id="sec"></div><div id="prog"><div id="progf"></div></div><div id="clock"></div></div>
 </div>
-<div id="ui"><button id="pp">⏸ 暫停</button><button id="rs">⟲ 重播</button><a href="../video/ISO27001_course_intro.mp4" target="_blank" rel="noopener">🎬 有聲影片 MP4</a><a href="classic.html">經典版</a></div>
+<div id="gate"><button id="go">🔊 開始播放（Allan 老師開口說話）</button><p>有聲版會用你裝置上的中文語音朗讀對話框。<br>建議使用 <b>Microsoft Edge</b> 瀏覽器，可聽到最自然的年輕男聲（雲哲）。</p></div>
+<div id="ui"><button id="pp">⏸ 暫停</button><button id="rs">⟲ 重播</button><a href="index.html?voice">🔊 有聲版</a><a href="../video/ISO27001_course_intro.mp4" target="_blank" rel="noopener">🎬 影片 MP4</a><a href="classic.html">經典版</a></div>
 
 <script>
 const DUR = 180;
@@ -609,6 +625,54 @@ function render(t){
 window.render=render; window.DUR=DUR;
 window.EVENTS={bubbles:LINES.map(l=>l[0]),scenes:scenes.map(s=>s.s).filter(x=>x>0)};
 
+/* ---------- voice mode: speak each bubble with the browser's TTS ---------- */
+const VOICE = new URLSearchParams(location.search).has("voice") || window.VOICE_MODE === true;
+const SAY_FIX = [[/<[^>]+>/g,""],[/[\u{1F300}-\u{1FAFF}☀-➿️]/gu,""],[/\n/g,""],[/P-D-C-A/g,"P D C A"],[/PDCA/g,"P D C A"],
+  [/ISO/g,"I S O "],[/SoA/g,"S O A"],[/BS 7799/g,"B S 七七九九"],[/4～10/g,"四到十"],[/附錄A/g,"附錄 A"],[/『|』/g,""],[/～/g,"！"]];
+const sayText = l => SAY_FIX.reduce((x,[a,b])=>x.replace(a,b), l[4] || l[2]);
+let voicePick = null;
+function pickVoice(){
+  const vs = (window.speechSynthesis && speechSynthesis.getVoices()) || [];
+  const zh = vs.filter(v => /^zh|cmn/i.test(v.lang));
+  const rank = v => {
+    const n = v.name + " " + v.lang;
+    let r = 0;
+    if (/YunJhe|雲哲/i.test(n)) r += 100;
+    if (/Yunxi|Yunyang|Yunjian|Yunxia|Zhiwei|志偉|Kangkang|male|男/i.test(n)) r += 50;
+    if (/Natural|Online|Neural/i.test(n)) r += 20;
+    if (/zh[-_]TW|Taiwan|臺灣|台灣/i.test(n)) r += 10;
+    if (/HsiaoChen|HsiaoYu|Hanhan|Yating|Meijia|Tingting|Xiaoxiao|female|女/i.test(n)) r -= 40;
+    return r;
+  };
+  zh.sort((a,b)=>rank(b)-rank(a));
+  voicePick = zh[0] || null;
+  const tag = document.getElementById("vname");
+  if (tag) tag.textContent = voicePick ? "語音：" + voicePick.name : "找不到中文語音";
+  return voicePick;
+}
+let spokenIdx = -1;
+function speakAt(t){
+  if (!VOICE || !window.speechSynthesis) return;
+  const i = LINES.findIndex(l => t >= l[0] && t < l[1]);
+  if (i === spokenIdx) return;
+  spokenIdx = i;
+  speechSynthesis.cancel();
+  if (i < 0 || t - LINES[i][0] > 0.6) return;   // don't start a line mid-way after seeking
+  const u = new SpeechSynthesisUtterance(sayText(LINES[i]));
+  const v = voicePick || pickVoice();
+  if (v) { u.voice = v; u.lang = v.lang; } else u.lang = "zh-TW";
+  const male = v && /YunJhe|雲哲|Yunxi|Yunyang|Yunjian|Zhiwei|志偉|Kangkang|male|男/i.test(v.name);
+  u.rate = 1.12; u.pitch = male ? 1.12 : 0.8;   // lively; pull an unknown/female voice lower
+  speechSynthesis.speak(u);
+  blip();
+}
+let actx = null;
+function blip(){ try{ actx = actx || new (window.AudioContext||window.webkitAudioContext)(); const o=actx.createOscillator(), g=actx.createGain();
+  o.frequency.setValueAtTime(500,actx.currentTime); o.frequency.exponentialRampToValueAtTime(1900,actx.currentTime+.12);
+  g.gain.setValueAtTime(.12,actx.currentTime); g.gain.exponentialRampToValueAtTime(.001,actx.currentTime+.14);
+  o.connect(g).connect(actx.destination); o.start(); o.stop(actx.currentTime+.15);}catch(e){} }
+if (VOICE && window.speechSynthesis) { speechSynthesis.onvoiceschanged = pickVoice; pickVoice(); }
+
 /* ---------- live playback ---------- */
 const RENDER=new URLSearchParams(location.search).has("render");
 if(RENDER){document.body.classList.add("render");render(0);}
@@ -618,12 +682,18 @@ else{
   addEventListener("resize",fit);fit();
   let t0=performance.now(),paused=false,pt=0;
   const now=()=>paused?pt:(performance.now()-t0)/1000;
-  const toggle=()=>{if(paused){t0=performance.now()-pt*1000;paused=false;$("#pp").textContent="⏸ 暫停";}else{pt=now();paused=true;$("#pp").textContent="▶ 播放";}};
-  $("#pp").onclick=toggle; $("#rs").onclick=()=>{t0=performance.now();pt=0;if(paused)toggle();};
+  const hush=()=>{ if(VOICE&&window.speechSynthesis){ speechSynthesis.cancel(); spokenIdx=-1; } };
+  const toggle=()=>{if(paused){t0=performance.now()-pt*1000;paused=false;$("#pp").textContent="⏸ 暫停";}else{pt=now();paused=true;hush();$("#pp").textContent="▶ 播放";}};
+  $("#pp").onclick=toggle; $("#rs").onclick=()=>{hush();t0=performance.now();pt=0;if(paused)toggle();};
   addEventListener("keydown",e=>{if(e.code==="Space"){e.preventDefault();toggle();}});
   const pr=$("#prog"); pr.style.pointerEvents="auto"; pr.style.cursor="pointer";
-  pr.onclick=e=>{const r=pr.getBoundingClientRect();const nt=(e.clientX-r.left)/r.width*DUR;t0=performance.now()-nt*1000;pt=nt;};
-  document.fonts.ready.then(()=>{t0=performance.now();(function loop(){render(Math.min(now(),DUR));requestAnimationFrame(loop);})();});
+  pr.onclick=e=>{const r=pr.getBoundingClientRect();const nt=(e.clientX-r.left)/r.width*DUR;hush();t0=performance.now()-nt*1000;pt=nt;};
+  const start=()=>{t0=performance.now();(function loop(){const t=Math.min(now(),DUR);render(t);if(!paused)speakAt(t);requestAnimationFrame(loop);})();};
+  if(VOICE){
+    $("#ui").insertAdjacentHTML("beforeend",'<span id="vname"></span>'); pickVoice();
+    render(0); $("#gate").style.display="flex";
+    $("#go").onclick=()=>{ $("#gate").style.display="none"; pickVoice(); try{speechSynthesis.speak(new SpeechSynthesisUtterance(""));}catch(e){} document.fonts.ready.then(start); };
+  } else document.fonts.ready.then(start);
 }
 </script>
 </body>
